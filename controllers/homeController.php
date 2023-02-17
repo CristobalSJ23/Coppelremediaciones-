@@ -14,7 +14,19 @@
 
         public function home(){
             $menu = $this->menu->getMenu($_SESSION['rol']);
-            var_dump(json_decode($menu['json_submenu'],true));
+            echo "<pre>";
+            var_dump($menu);
+            foreach($menu as $i=>$men){
+            echo $men[$i]['json_submenu'];
+            // $decode = json_decode($men['json_submenu'][$i]);
+            // // echo $decode->id;
+            // $id_submenu = explode(",",$decode->id);
+            // foreach($id_submenu as $id){
+            //     $submenu = $this->menu->getSubMenu($id);
+                
+            //     }
+            }
+            // var_dump($id_submenu);
             exit;
             require_once("views/templates/header.php");
             require_once("views/templates/menu.php");
