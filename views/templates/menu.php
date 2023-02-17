@@ -2,38 +2,20 @@
 	<nav class="navbar navbar-light bg-light justify-content-between">
 		<ul>
 			<li><a href="index.php">Inicio <span class="icon icon-up-dir"></span></a></li>
+			<?php 
+			/* var_dump($menu['nombre_menu'][0]);
+			exit; */
+				foreach($menu['nombre_menu'] as $i=>$dato) {
+			?>
 			<li>
-				<a href="#">Registrar <span class="icon icon-up-dir"></span></a>
-				<div class="submenu">
-					<div class="submenu-items">
-						<!--<p>Tablas</p>-->
-						<ul>
-							<li><a href="aps.php">APS</a></li>
-							<li><a href="rol.php">Rol</a></li>
-							<li><a href="personas.php">Personas</a></li>
-							<li><a href="sistema.php">Sistemas</a></li>
-						</ul>
-					</div>
-
-				</div>
+				<a href="#"><?= $dato ?> <span class="icon icon-up-dir"></span></a>
 			</li>
-			<li>
-				<a href="#">Vistas<span class="icon icon-up-dir"></span></a>
-				<div class="submenu">
-					<div class="submenu-items">
-						<!--<p>Tablas</p>-->
-						<ul>
-							<li><a href="indicadores-vista.php">Indicadores</a>
-							<li><a href="relacion-vista.php">Relaciones</a></li>
-						</ul>
-					</div>
-
-				</div>
-			</li>
-
+			<?php 
+				}
+			?>
 		</ul>
 		<form class="form-inline">			
-			<a href="cerrar_sesion.php">Cerrar sesión <span class="icon icon-up-dir"></span></a>
+			<a href="">Cerrar sesión <span class="icon icon-up-dir"></span></a>
 		</form>
 	</nav>
 </div>
