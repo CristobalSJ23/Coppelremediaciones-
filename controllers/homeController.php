@@ -14,6 +14,8 @@
 
         public function home(){
             $menu = $this->menu->getMenu($_SESSION['rol']);
+            var_dump(json_decode($menu['json_submenu'],true));
+            exit;
             require_once("views/templates/header.php");
             require_once("views/templates/menu.php");
             require_once("views/home.php");
