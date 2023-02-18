@@ -9,6 +9,25 @@
 			?>
 			<li>
 				<a href="#"><?= $dato ?> <span class="icon icon-up-dir"></span></a>
+				<div class="submenu">
+					<div class="submenu-items">
+						<!--<p>Tablas</p>-->
+						<ul>
+							<?php  
+								//echo "<pre>";
+								//var_dump($menu);
+								//var_dump($menu['submenu'][0]['nombre']);
+								foreach($menu['submenu'][$i]['submenu'] as $j=>$submenu) {
+									//var_dump($submenu);
+									
+							?>
+							<li><a href=""> <?= $menu['submenu'][0]['nombre'] ?></a></li>
+							<?php 
+								}
+							?>
+						</ul>
+					</div>
+				</div>
 			</li>
 			<?php 
 				}
