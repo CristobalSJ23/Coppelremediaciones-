@@ -26,7 +26,7 @@
         }
 
         public function getSubMenu($id){
-            $query = "SELECT * FROM co_submenus WHERE id_submenu = '$id' AND estatus = 1";
+            $query = "SELECT * FROM co_submenus WHERE id_submenu IN($id) AND estatus = 1";
             $res = mysqli_query($this->con, $query);
             $i = 0; 
             while($row = mysqli_fetch_assoc($res)){
