@@ -195,3 +195,11 @@ body {
 	margin: 6px 0;
 	display: block;
 }
+
+.mt-20{
+  margin-top: 15rem;
+}
+
+.margin5pxLeft{
+  margin-left: 5px;
+}

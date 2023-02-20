@@ -14,7 +14,7 @@
 							<?php  				
 								foreach($menu['submenu'][$i]['nombre'] as $j=>$submenu) {							
 							?>
-							<li><a href=""> <?= $submenu ?></a></li>
+							<li><a href="<?= $submenu ?>.php"> <?= $submenu ?></a></li>
 							<?php 
 								}
 							?>
