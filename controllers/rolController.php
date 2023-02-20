@@ -20,7 +20,7 @@ class RolController{
                 $id_submenu = explode(",",$decode->id);
                 
                 foreach($id_submenu as $id) {
-                    $submenu = $this->menu->getSubMenu(implode(",", $id_submenu));               
+                    $submenu = $this->menu->getSubMenu(implode(",", $id_submenu));
                     $menu['submenu'][$i] = $submenu;                    
                 }             
             }
@@ -33,9 +33,17 @@ class RolController{
     public function saveRol($datos){
         if(empty($datos['nombre'])){
             $data['errorRol'] = 'Error. Debe escribir un nombre para el rol';
+        }
+        if(empty($datos['menusPrincipales'])){
+            $data['errorMenus'] = 'Error. Debe seleccionar al menos un menú';
+        }
+        if(empty($datos['menusSecundarios'])){
+            $data['errorSubMenus'] = 'Error. Debe seleccionar al menos un menú secundario';
+        }
+        if(isset($data)){
             return $data;
         }
-        $res = $this->rol->saveRol($datos['nombre']);
+        $res = $this->rol->saveRol($datos['nombre'],$datos['menusPrincipales'],$datos['menusSecundarios']);
         return $res;
     }
 }
