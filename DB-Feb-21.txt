@@ -1,0 +1,858 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 21-02-2023 a las 17:36:53
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 7.4.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `sistema_versiones`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `aps`
+--
+
+CREATE TABLE `aps` (
+  `folio` double NOT NULL,
+  `nombre_aps` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `aps`
+--
+
+INSERT INTO `aps` (`folio`, `nombre_aps`) VALUES
+(1, 'aps uno'),
+(2, 'aps dos'),
+(3, 'aps tres'),
+(4, 'aps cuatro'),
+(5, 'aps cinco'),
+(6, 'aps seis');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignacion_sistema`
+--
+
+CREATE TABLE `asignacion_sistema` (
+  `id_as` int(11) NOT NULL,
+  `fk_id_per_as` int(11) DEFAULT NULL,
+  `fk_id_sis_as` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asignacion_sistema`
+--
+
+INSERT INTO `asignacion_sistema` (`id_as`, `fk_id_per_as`, `fk_id_sis_as`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_menus`
+--
+
+CREATE TABLE `co_menus` (
+  `id_menu` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `orden` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  `descripcion` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_menus`
+--
+
+INSERT INTO `co_menus` (`id_menu`, `nombre`, `orden`, `estatus`, `descripcion`) VALUES
+(1, 'registrar', 1, 1, 'Menu para vistas de registro'),
+(2, 'Vistas', 2, 1, 'Menu para ver vistas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_permisos`
+--
+
+CREATE TABLE `co_permisos` (
+  `id_permiso` int(11) NOT NULL,
+  `permiso` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_rel_rol_menu`
+--
+
+CREATE TABLE `co_rel_rol_menu` (
+  `id_rel` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
+  `id_menu` int(11) NOT NULL,
+  `json_submenu` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_rel_rol_menu`
+--
+
+INSERT INTO `co_rel_rol_menu` (`id_rel`, `id_rol`, `id_menu`, `json_submenu`) VALUES
+(1, 1, 1, '{\"id\":\"1,2,3\"}'),
+(2, 1, 2, '{\"id\":\"4,5\"}'),
+(3, 2, 1, '{\"id\":\"1,2,3\"}'),
+(4, 2, 2, '{\"id\":\"4,5\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_roles`
+--
+
+CREATE TABLE `co_roles` (
+  `id_rol` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `fecha_reg` date DEFAULT NULL,
+  `fecha_up` date DEFAULT NULL,
+  `fecha_de` date DEFAULT NULL,
+  `estatus` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_roles`
+--
+
+INSERT INTO `co_roles` (`id_rol`, `nombre`, `fecha_reg`, `fecha_up`, `fecha_de`, `estatus`) VALUES
+(1, 'Arquitecto', '2023-02-16', NULL, NULL, 1),
+(2, 'Programador', '2023-02-20', NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_r_rol_per`
+--
+
+CREATE TABLE `co_r_rol_per` (
+  `id_rel` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
+  `id_permiso` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_r_usu`
+--
+
+CREATE TABLE `co_r_usu` (
+  `id_r_usu` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_r_usu`
+--
+
+INSERT INTO `co_r_usu` (`id_r_usu`, `id_usuario`, `id_rol`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_submenus`
+--
+
+CREATE TABLE `co_submenus` (
+  `id_submenu` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `orden` int(11) NOT NULL,
+  `estatus` int(11) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `id_menu` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_submenus`
+--
+
+INSERT INTO `co_submenus` (`id_submenu`, `nombre`, `orden`, `estatus`, `descripcion`, `id_menu`) VALUES
+(1, 'APS', 1, 1, 'Registrar APS', 1),
+(2, 'Rol', 2, 1, 'Registrar rol', 1),
+(3, 'Usuarios', 3, 1, 'Registrar usuarios', 1),
+(4, 'Indicadores', 5, 1, 'Registrar indicadores', 2),
+(5, 'Relaciones', 5, 1, 'Registrar relaciones', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `co_usuarios`
+--
+
+CREATE TABLE `co_usuarios` (
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apt_pat` varchar(15) DEFAULT NULL,
+  `apt_mat` varchar(15) DEFAULT NULL,
+  `tipo_usuario` varchar(50) DEFAULT NULL,
+  `correo` varchar(50) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `fecha_reg` date DEFAULT NULL,
+  `fecha_up` date DEFAULT NULL,
+  `fecha_de` date DEFAULT NULL,
+  `estatus` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `co_usuarios`
+--
+
+INSERT INTO `co_usuarios` (`id_usuario`, `nombre`, `apt_pat`, `apt_mat`, `tipo_usuario`, `correo`, `password`, `fecha_reg`, `fecha_up`, `fecha_de`, `estatus`) VALUES
+(1, 'Fernando', 'A', 'O', 'Interno', 'fer@fer.com', 'pass', '2023-02-16', NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_pdp`
+--
+
+CREATE TABLE `historial_pdp` (
+  `id_hist` int(11) NOT NULL,
+  `fk_id_pdp` int(11) DEFAULT NULL,
+  `version_historial` int(11) DEFAULT NULL,
+  `estatus_sis` varchar(300) DEFAULT NULL,
+  `folio_aps` float DEFAULT NULL,
+  `descripcion` varchar(300) DEFAULT NULL,
+  `url_sis` varchar(300) DEFAULT NULL,
+  `arquitecto` varchar(300) DEFAULT NULL,
+  `programador` varchar(300) DEFAULT NULL,
+  `tester` varchar(300) DEFAULT NULL,
+  `gerente` varchar(300) DEFAULT NULL,
+  `usuario_gerente` varchar(300) DEFAULT NULL,
+  `fecha_pdp` varchar(300) DEFAULT NULL,
+  `fecha_pruebas_pdp` varchar(300) DEFAULT NULL,
+  `fecha_aprobacion_pdp` varchar(300) DEFAULT NULL,
+  `nueva_version_pdp` varchar(300) DEFAULT NULL,
+  `version_anterior_pdp` varchar(300) DEFAULT NULL,
+  `resutado_pdp` varchar(300) DEFAULT NULL,
+  `apagar_pdp` tinyint(1) DEFAULT NULL,
+  `aprobado_pdp` tinyint(1) DEFAULT NULL,
+  `notas_asignacion_pdp` varchar(300) DEFAULT NULL,
+  `bitacora_pdp` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lenguaje`
+--
+
+CREATE TABLE `lenguaje` (
+  `id_leng` int(11) NOT NULL,
+  `nombre_leng` varchar(300) DEFAULT NULL,
+  `extension_leng` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `palabras`
+--
+
+CREATE TABLE `palabras` (
+  `id_pal` int(11) NOT NULL,
+  `nombre_pal` varchar(300) DEFAULT NULL,
+  `fk_id_pal` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pdc`
+--
+
+CREATE TABLE `pdc` (
+  `id_pdc` int(11) NOT NULL,
+  `fk_id_sis_pdc` int(11) DEFAULT NULL,
+  `total_pdc` int(11) DEFAULT NULL,
+  `descripcion_pdc` varchar(300) DEFAULT NULL,
+  `resuelto_pdc` int(11) DEFAULT NULL,
+  `aprobados_pdc` int(11) DEFAULT NULL,
+  `lineas_pdc` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pdc`
+--
+
+INSERT INTO `pdc` (`id_pdc`, `fk_id_sis_pdc`, `total_pdc`, `descripcion_pdc`, `resuelto_pdc`, `aprobados_pdc`, `lineas_pdc`) VALUES
+(1, 1, NULL, 'descripcion pdc sistema 1', 0, 0, NULL),
+(2, 2, NULL, 'descripcion pdc sistema 2', 0, 0, NULL),
+(3, 3, NULL, 'descripcion pdc sistema 3', 0, 0, NULL),
+(4, 4, NULL, 'descripcion pdc sistema 5', 0, 0, NULL),
+(5, 5, NULL, 'descripcion pdc sistema 6', 0, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pdp`
+--
+
+CREATE TABLE `pdp` (
+  `id_pdp` int(11) NOT NULL,
+  `fk_id_sis_pdp` int(11) DEFAULT NULL,
+  `fecha_pdp` datetime(6) DEFAULT NULL,
+  `fecha_pruebas_pdp` datetime(6) DEFAULT NULL,
+  `fecha_aprobacion_pdp` datetime(6) DEFAULT NULL,
+  `nueva_version_pdp` varchar(300) DEFAULT NULL,
+  `version_anterior_pdp` varchar(300) DEFAULT NULL,
+  `resutado_pdp` varchar(300) DEFAULT NULL,
+  `apagar_pdp` tinyint(1) DEFAULT NULL,
+  `aprobado_pdp` tinyint(1) DEFAULT NULL,
+  `notas_asignacion_pdp` varchar(300) DEFAULT NULL,
+  `bitacora_pdp` varchar(300) DEFAULT NULL,
+  `version_historial_pdp` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pdp`
+--
+
+INSERT INTO `pdp` (`id_pdp`, `fk_id_sis_pdp`, `fecha_pdp`, `fecha_pruebas_pdp`, `fecha_aprobacion_pdp`, `nueva_version_pdp`, `version_anterior_pdp`, `resutado_pdp`, `apagar_pdp`, `aprobado_pdp`, `notas_asignacion_pdp`, `bitacora_pdp`, `version_historial_pdp`) VALUES
+(1, 1, '2023-02-13 12:48:18.000000', '2023-02-14 12:00:00.000000', NULL, 'Desarrollo', NULL, NULL, NULL, NULL, 'Algunas notas', 'Registro inicial', 1),
+(2, 2, '2023-02-13 12:48:18.000000', '2023-02-14 12:00:00.000000', NULL, 'Desarrollo', NULL, NULL, NULL, NULL, 'Algunas notas', 'Registro inicial', 1);
+
+--
+-- Disparadores `pdp`
+--
+DELIMITER $$
+CREATE TRIGGER `agrega_historial` AFTER UPDATE ON `pdp` FOR EACH ROW INSERT INTO `historial_pdp` 
+    (`fk_id_pdp`, 
+    `version_historial`, 
+    `estatus_sis`, 
+    `folio_aps`, 
+    `descripcion`, 
+    `url_sis`, 
+    `arquitecto`, 
+    `programador`, 
+    `tester`, 
+    `gerente`, 
+    `usuario_gerente`, 
+    `fecha_pdp`, 
+    `fecha_pruebas_pdp`, 
+    `fecha_aprobacion_pdp`, 
+    `nueva_version_pdp`, 
+    `version_anterior_pdp`, 
+    `resutado_pdp`, 
+    `apagar_pdp`, 
+    `aprobado_pdp`, 
+    `notas_asignacion_pdp`, 
+    `bitacora_pdp`) 
+VALUES (
+    old.id_pdp, 
+    new.version_historial_pdp, 
+    (SELECT estatus_sis FROM sistema WHERE id_sis = old.fk_id_sis_pdp), 
+    (SELECT sistema.fk_folio_aps FROM sistema WHERE id_sis = old.fk_id_sis_pdp), 
+    (SELECT descripcion_pdc FROM pdc WHERE fk_id_sis_pdc = old.fk_id_sis_pdp), 
+    (SELECT url_sis FROM sistema WHERE id_sis = old.fk_id_sis_pdp), 
+    (SELECT nombre_per FROM personas WHERE fk_id_sis = old.fk_id_sis_pdp AND fk_id_rol=1), 
+    (SELECT nombre_per FROM personas WHERE fk_id_sis = old.fk_id_sis_pdp AND fk_id_rol=2), 
+    (SELECT nombre_per FROM personas WHERE fk_id_sis = old.fk_id_sis_pdp AND fk_id_rol=3), 
+    (SELECT nombre_per FROM personas WHERE fk_id_sis = old.fk_id_sis_pdp AND fk_id_rol=4), 
+    (SELECT nombre_per FROM personas WHERE fk_id_sis = old.fk_id_sis_pdp AND fk_id_rol=5), 
+    old.fecha_pdp, 
+    old.fecha_pruebas_pdp, 
+    old.fecha_aprobacion_pdp, 
+    old.nueva_version_pdp, 
+    old.version_anterior_pdp, 
+    old.resutado_pdp, 
+    old.apagar_pdp, 
+    old.aprobado_pdp, 
+    old.notas_asignacion_pdp, 
+    old.bitacora_pdp
+)
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personas`
+--
+
+CREATE TABLE `personas` (
+  `id_per` int(11) NOT NULL,
+  `nombre_per` varchar(300) DEFAULT NULL,
+  `tipo_per` varchar(300) DEFAULT NULL,
+  `mail_per` varchar(300) DEFAULT NULL,
+  `pas_per` varchar(300) DEFAULT NULL,
+  `celula_per` varchar(300) DEFAULT NULL,
+  `fk_id_rol` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `personas`
+--
+
+INSERT INTO `personas` (`id_per`, `nombre_per`, `tipo_per`, `mail_per`, `pas_per`, `celula_per`, `fk_id_rol`) VALUES
+(1, 'Jorge', 'Arquitecto', 'arqui@gmail.com', 'test', NULL, 1),
+(2, 'Juan', 'Programador', 'programador@gmail.com', 'test', NULL, 2),
+(3, 'Carlos', 'Gerente', 'gerente@gmail.com', 'test', NULL, 3),
+(4, 'Pablo', 'Jefe de área', 'jefe_area@gmail.com', 'test', NULL, 4),
+(5, 'Adrian', 'Usuario', 'usuario@gmail.com', 'test', NULL, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prueba`
+--
+
+CREATE TABLE `prueba` (
+  `id` int(11) NOT NULL,
+  `json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`json`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `prueba`
+--
+
+INSERT INTO `prueba` (`id`, `json`) VALUES
+(10, '[35,37,43]'),
+(11, '[35,37,43]'),
+(12, '[35,37,43]'),
+(13, '[35,37,43]'),
+(14, '[35,37,43]'),
+(15, '[35,37,43]'),
+(16, '[35,37,43]');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion`
+--
+
+CREATE TABLE `relacion` (
+  `id_rel` int(11) NOT NULL,
+  `fk_id_sis_rel` int(11) DEFAULT NULL,
+  `nombre_api_rel` varchar(300) DEFAULT NULL,
+  `ruta_api_rel` varchar(300) DEFAULT NULL,
+  `nombre_plantilla_rel` varchar(300) DEFAULT NULL,
+  `ruta_plantilla_rel` varchar(300) DEFAULT NULL,
+  `ruta_salida_rel` varchar(300) DEFAULT NULL,
+  `nombre_python_rel` varchar(300) DEFAULT NULL,
+  `ruta_python_rel` varchar(300) DEFAULT NULL,
+  `nombre_exe_rel` varchar(300) DEFAULT NULL,
+  `ruta_exe_rel` varchar(300) DEFAULT NULL,
+  `php_exel_rel` tinyint(1) DEFAULT NULL,
+  `python_rel` tinyint(1) DEFAULT NULL,
+  `api_rel` tinyint(1) DEFAULT NULL,
+  `inet_rel` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `id_rol` int(11) NOT NULL,
+  `tipo_rol` varchar(300) DEFAULT NULL,
+  `privilegio_rol` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id_rol`, `tipo_rol`, `privilegio_rol`) VALUES
+(1, 'Arquitecto', 'Arquitecto'),
+(2, 'Programador', 'Programador'),
+(3, 'Gerente', 'Gerente'),
+(4, 'Jefe de Área', 'Jefe de Área'),
+(5, 'Usuario', 'Usuario');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sistema`
+--
+
+CREATE TABLE `sistema` (
+  `id_sis` int(11) NOT NULL,
+  `fk_folio_aps` double NOT NULL,
+  `nombre_sis` varchar(300) DEFAULT NULL,
+  `url_sis` varchar(300) DEFAULT NULL,
+  `checkmarx_sis` varchar(300) DEFAULT NULL,
+  `estatus_sis` varchar(300) DEFAULT NULL,
+  `vo_bo_sis` varchar(30) DEFAULT NULL,
+  `fuente_sis` varchar(300) DEFAULT NULL,
+  `observacion_sis` varchar(300) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `sistema`
+--
+
+INSERT INTO `sistema` (`id_sis`, `fk_folio_aps`, `nombre_sis`, `url_sis`, `checkmarx_sis`, `estatus_sis`, `vo_bo_sis`, `fuente_sis`, `observacion_sis`) VALUES
+(1, 1, 'sistema para aps 1', 'aps/1/sistema_demo', 'check sis 1', 'Desarrollo', 'vobo', 'coppel', 'no'),
+(2, 2, 'sistema para aps 2', 'aps/2/almacen', 'check sis 2', 'Ruta Espejo', 'vobo', 'coppel', 'no'),
+(3, 3, 'sistema para aps 3', 'aps/3/articulos', 'check sis 3', 'VoBo Transito', 'VoBo Transito', 'coppel', 'no'),
+(4, 5, 'sistema para aps 5', 'aps/5/libros', 'check sis 5', 'Producción', 'VoBo', 'coppel', 'no'),
+(5, 6, 'sistema para aps 6', 'aps/5/peliculas', 'check sis 6', 'Aprobado', 'VoBo', 'coppel', 'no');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vunerabilidad`
+--
+
+CREATE TABLE `vunerabilidad` (
+  `id_vu` int(11) NOT NULL,
+  `fk_id_sis_vu` int(11) DEFAULT NULL,
+  `alta_vu` int(11) DEFAULT NULL,
+  `media_vu` int(11) DEFAULT NULL,
+  `baja_vu` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `aps`
+--
+ALTER TABLE `aps`
+  ADD PRIMARY KEY (`folio`);
+
+--
+-- Indices de la tabla `asignacion_sistema`
+--
+ALTER TABLE `asignacion_sistema`
+  ADD PRIMARY KEY (`id_as`),
+  ADD KEY `fk_id_per_as` (`fk_id_per_as`),
+  ADD KEY `fk_id_sis_as` (`fk_id_sis_as`);
+
+--
+-- Indices de la tabla `co_menus`
+--
+ALTER TABLE `co_menus`
+  ADD PRIMARY KEY (`id_menu`);
+
+--
+-- Indices de la tabla `co_permisos`
+--
+ALTER TABLE `co_permisos`
+  ADD PRIMARY KEY (`id_permiso`);
+
+--
+-- Indices de la tabla `co_rel_rol_menu`
+--
+ALTER TABLE `co_rel_rol_menu`
+  ADD PRIMARY KEY (`id_rel`);
+
+--
+-- Indices de la tabla `co_roles`
+--
+ALTER TABLE `co_roles`
+  ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `co_r_rol_per`
+--
+ALTER TABLE `co_r_rol_per`
+  ADD PRIMARY KEY (`id_rel`);
+
+--
+-- Indices de la tabla `co_r_usu`
+--
+ALTER TABLE `co_r_usu`
+  ADD PRIMARY KEY (`id_r_usu`);
+
+--
+-- Indices de la tabla `co_submenus`
+--
+ALTER TABLE `co_submenus`
+  ADD PRIMARY KEY (`id_submenu`);
+
+--
+-- Indices de la tabla `co_usuarios`
+--
+ALTER TABLE `co_usuarios`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- Indices de la tabla `historial_pdp`
+--
+ALTER TABLE `historial_pdp`
+  ADD PRIMARY KEY (`id_hist`),
+  ADD KEY `fk_id_pdp` (`fk_id_pdp`);
+
+--
+-- Indices de la tabla `lenguaje`
+--
+ALTER TABLE `lenguaje`
+  ADD PRIMARY KEY (`id_leng`);
+
+--
+-- Indices de la tabla `palabras`
+--
+ALTER TABLE `palabras`
+  ADD PRIMARY KEY (`id_pal`),
+  ADD KEY `fk_id_pal` (`fk_id_pal`);
+
+--
+-- Indices de la tabla `pdc`
+--
+ALTER TABLE `pdc`
+  ADD PRIMARY KEY (`id_pdc`),
+  ADD KEY `fk_id_sis_pdc` (`fk_id_sis_pdc`);
+
+--
+-- Indices de la tabla `pdp`
+--
+ALTER TABLE `pdp`
+  ADD PRIMARY KEY (`id_pdp`),
+  ADD KEY `fk_id_sis_pdp` (`fk_id_sis_pdp`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`id_per`),
+  ADD KEY `fk_id_rol` (`fk_id_rol`);
+
+--
+-- Indices de la tabla `prueba`
+--
+ALTER TABLE `prueba`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  ADD PRIMARY KEY (`id_rel`),
+  ADD KEY `fk_id_sis_rel` (`fk_id_sis_rel`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `sistema`
+--
+ALTER TABLE `sistema`
+  ADD PRIMARY KEY (`id_sis`),
+  ADD KEY `fk_folio_aps` (`fk_folio_aps`);
+
+--
+-- Indices de la tabla `vunerabilidad`
+--
+ALTER TABLE `vunerabilidad`
+  ADD PRIMARY KEY (`id_vu`),
+  ADD KEY `fk_id_sis_vu` (`fk_id_sis_vu`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `asignacion_sistema`
+--
+ALTER TABLE `asignacion_sistema`
+  MODIFY `id_as` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `co_menus`
+--
+ALTER TABLE `co_menus`
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `co_permisos`
+--
+ALTER TABLE `co_permisos`
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `co_rel_rol_menu`
+--
+ALTER TABLE `co_rel_rol_menu`
+  MODIFY `id_rel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `co_roles`
+--
+ALTER TABLE `co_roles`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `co_r_rol_per`
+--
+ALTER TABLE `co_r_rol_per`
+  MODIFY `id_rel` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `co_r_usu`
+--
+ALTER TABLE `co_r_usu`
+  MODIFY `id_r_usu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `co_submenus`
+--
+ALTER TABLE `co_submenus`
+  MODIFY `id_submenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `co_usuarios`
+--
+ALTER TABLE `co_usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_pdp`
+--
+ALTER TABLE `historial_pdp`
+  MODIFY `id_hist` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `lenguaje`
+--
+ALTER TABLE `lenguaje`
+  MODIFY `id_leng` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `palabras`
+--
+ALTER TABLE `palabras`
+  MODIFY `id_pal` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pdc`
+--
+ALTER TABLE `pdc`
+  MODIFY `id_pdc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `pdp`
+--
+ALTER TABLE `pdp`
+  MODIFY `id_pdp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `id_per` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `prueba`
+--
+ALTER TABLE `prueba`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  MODIFY `id_rel` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `vunerabilidad`
+--
+ALTER TABLE `vunerabilidad`
+  MODIFY `id_vu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `asignacion_sistema`
+--
+ALTER TABLE `asignacion_sistema`
+  ADD CONSTRAINT `asignacion_sistema_ibfk_1` FOREIGN KEY (`fk_id_per_as`) REFERENCES `personas` (`id_per`) ON DELETE CASCADE,
+  ADD CONSTRAINT `asignacion_sistema_ibfk_2` FOREIGN KEY (`fk_id_sis_as`) REFERENCES `sistema` (`id_sis`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `historial_pdp`
+--
+ALTER TABLE `historial_pdp`
+  ADD CONSTRAINT `historial_pdp_ibfk_1` FOREIGN KEY (`fk_id_pdp`) REFERENCES `pdp` (`id_pdp`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `palabras`
+--
+ALTER TABLE `palabras`
+  ADD CONSTRAINT `palabras_ibfk_1` FOREIGN KEY (`fk_id_pal`) REFERENCES `lenguaje` (`id_leng`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `pdc`
+--
+ALTER TABLE `pdc`
+  ADD CONSTRAINT `pdc_ibfk_1` FOREIGN KEY (`fk_id_sis_pdc`) REFERENCES `sistema` (`id_sis`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `pdp`
+--
+ALTER TABLE `pdp`
+  ADD CONSTRAINT `pdp_ibfk_1` FOREIGN KEY (`fk_id_sis_pdp`) REFERENCES `sistema` (`id_sis`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD CONSTRAINT `personas_ibfk_1` FOREIGN KEY (`fk_id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  ADD CONSTRAINT `relacion_ibfk_1` FOREIGN KEY (`fk_id_sis_rel`) REFERENCES `sistema` (`id_sis`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `sistema`
+--
+ALTER TABLE `sistema`
+  ADD CONSTRAINT `sistema_ibfk_1` FOREIGN KEY (`fk_folio_aps`) REFERENCES `aps` (`folio`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `vunerabilidad`
+--
+ALTER TABLE `vunerabilidad`
+  ADD CONSTRAINT `vunerabilidad_ibfk_1` FOREIGN KEY (`fk_id_sis_vu`) REFERENCES `sistema` (`id_sis`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
