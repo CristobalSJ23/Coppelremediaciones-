@@ -1,12 +1,16 @@
 <?php
-require_once("controllers/loginController.php");
-$inc = new LoginController();
+require_once("config/config.php");
+require_once("routes/router.php");
+$routes = new Router();
 $peticion = $_SERVER["REQUEST_METHOD"];
-
 if($peticion == "GET"){
-    $inc->login();
+    $datos = $_GET;
 }else{
-     $respuesta = $inc->validate($_POST);
-     $inc->login($respuesta);
+    $datos = $_POST;
 }
+$routes->run($datos);
+
+// require_once("controllers/loginController.php");
+// $inc = new LoginController();
+
 ?>
