@@ -12,5 +12,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <!-- Select multiple -->
-    <link href="assets/styles/styles.css"  rel="stylesheet">
+    <link href="../assets/styles/styles.css"  rel="stylesheet">
   </head>
