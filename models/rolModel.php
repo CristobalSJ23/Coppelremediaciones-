@@ -24,14 +24,6 @@ class RolModel{
             $res_get_menu_id = mysqli_query($this->con,$query_get_menu_id);
             $arreglo_get_menu_id = mysqli_fetch_assoc($res_get_menu_id);
             $menu_id = $arreglo_get_menu_id['id_menu'];
-            
-            $query_contador = 
-            "SELECT count(*) as total 
-             FROM co_submenus 
-             WHERE id_menu='".$menu_id."'";
-            $res_contador = mysqli_query($this->con,$query_contador);
-            $arreglo_contador = mysqli_fetch_assoc($res_contador);
-            $contador = (int)$arreglo_contador['total'];
 
             $submenus_arr = array();
             foreach($submenus as $j=>$sub){
