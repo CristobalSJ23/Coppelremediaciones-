@@ -10,10 +10,10 @@ class RolModel{
                         VALUES('$rol', CURDATE(), 1)";
         $res_roles = mysqli_query($this->con,$query_roles);
 
-        $query_get_id_count = "SELECT count(id_rol) FROM co_roles";
-        $res_id_count = mysqli_query($this->con,$query_get_id_count);
-        $arreglo_id_count = mysqli_fetch_assoc($res_id_count);
-        $id_count = (int)$arreglo_id_count["count(id_rol)"];
+        $query_get_total_roles = "SELECT count(id_rol) FROM co_roles";
+        $res_total_roles = mysqli_query($this->con,$query_get_total_roles);
+        $arreglo_total_roles = mysqli_fetch_assoc($res_total_roles);
+        $total_roles = (int)$arreglo_total_roles["count(id_rol)"];
 
         $query_base = "INSERT INTO co_rel_rol_menu (id_rol, id_menu, json_submenu) VALUES";
         foreach($menus as $i=>$elem){
@@ -33,27 +33,24 @@ class RolModel{
             $arreglo_contador = mysqli_fetch_assoc($res_contador);
             $contador = (int)$arreglo_contador['total'];
 
-            $submenus_arr = '';
+            $submenus_arr = array();
             foreach($submenus as $j=>$sub){
                 $query_get_info_submenu = 
-                "SELECT id_submenu, id_menu 
+                "SELECT id_submenu
                  FROM co_submenus 
                  WHERE nombre='".$sub."' 
                  AND id_menu='".$menu_id."'";
                 $res_get_info_submenu = mysqli_query($this->con,$query_get_info_submenu);
                 $arreglo_get_info_submenu = mysqli_fetch_assoc($res_get_info_submenu);
-
+                
                 if($arreglo_get_info_submenu != NULL){
-                    if($j==($contador-1) || $j==(sizeof($submenus)-1)){
-                        $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"];
-                    } else {
-                        $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"].",";
-                    }
-                }                
+                    array_push($submenus_arr,$arreglo_get_info_submenu["id_submenu"]);
+                }
             }
 
-            $submenus_json = json_encode(array('id' => $submenus_arr));
-            $query_menus = "('$id_count','$menu_id','$submenus_json')";
+            $csv = implode(",",$submenus_arr);
+            $submenus_json = json_encode(array('id' => $csv));
+            $query_menus = "('$total_roles','$menu_id','$submenus_json')";
             $res = mysqli_query($this->con,$query_base.$query_menus);
             if(!$res){
                 echo "fallo de insersion";
