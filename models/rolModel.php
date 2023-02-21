@@ -8,12 +8,12 @@ class RolModel{
     public function saveRol($rol,$menus,$submenus){
         $query_roles = "INSERT INTO co_roles (nombre, fecha_reg, estatus)
                         VALUES('$rol', CURDATE(), 1)";
+        $res_roles = mysqli_query($this->con,$query_roles);
 
         $query_get_id_count = "SELECT count(id_rol) FROM co_roles";
         $res_id_count = mysqli_query($this->con,$query_get_id_count);
         $arreglo_id_count = mysqli_fetch_assoc($res_id_count);
         $id_count = (int)$arreglo_id_count["count(id_rol)"];
-        $new_id = $id_count + 1;
 
         $query_base = "INSERT INTO co_rel_rol_menu (id_rol, id_menu, json_submenu) VALUES";
         foreach($menus as $i=>$elem){
@@ -33,8 +33,6 @@ class RolModel{
             $arreglo_contador = mysqli_fetch_assoc($res_contador);
             $contador = (int)$arreglo_contador['total'];
 
-            var_dump($contador);
-
             $submenus_arr = '';
             foreach($submenus as $j=>$sub){
                 $query_get_info_submenu = 
@@ -44,20 +42,23 @@ class RolModel{
                  AND id_menu='".$menu_id."'";
                 $res_get_info_submenu = mysqli_query($this->con,$query_get_info_submenu);
                 $arreglo_get_info_submenu = mysqli_fetch_assoc($res_get_info_submenu);
-                $submenus_arr .= $arreglo_get_info_submenu["id_submenu"];
-                // if($j==($contador-1)){
-                //     $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"];
-                // } else {
-                //     $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"].",";
-                // }
+
+                if($arreglo_get_info_submenu != NULL){
+                    if($j==($contador-1) || $j==(sizeof($submenus)-1)){
+                        $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"];
+                    } else {
+                        $submenus_arr = $submenus_arr.$arreglo_get_info_submenu["id_submenu"].",";
+                    }
+                }                
             }
 
             $submenus_json = json_encode(array('id' => $submenus_arr));
-            $query_menus = "('$new_id','$menu_id','$submenus_json')";
-            var_dump($query_menus);
+            $query_menus = "('$id_count','$menu_id','$submenus_json')";
+            $res = mysqli_query($this->con,$query_base.$query_menus);
+            if(!$res){
+                echo "fallo de insersion";
+            }
         }
-        exit();
-        $res = mysqli_query($this->con,$query_roles);
         return $data['guardado']=$res;
     }
 }
