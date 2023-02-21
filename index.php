@@ -2,9 +2,8 @@
 require_once("config/config.php");
 $url = explode("/",URL);
 require_once("routes/router.php");
-
-if($url[0] == ""){
-    header("location:".$_SERVER['HTTP_HOST']."/Coppelremediaciones-/login/login");
+if($url[0] == "" && $url[1] == ""){
+     header("location: login/login");
 }
 $routes = new Router();
 $peticion = $_SERVER["REQUEST_METHOD"];

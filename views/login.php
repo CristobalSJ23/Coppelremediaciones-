@@ -1,7 +1,7 @@
 <div class="center">
     <h1>¡Bienvenido/a!</h1>
     <hr>
-    <form method="post">
+    <form method="post" action="validate">
         <div class="txt_field">
             <input type="text" name="usuario" <?php if(isset($datos['usuario'])){ ?> value="<?= $datos['usuario'] ?>" <?php } ?> >
             <?php

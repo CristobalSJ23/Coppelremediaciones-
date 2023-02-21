@@ -1,5 +1,5 @@
 <?php
-class LoginController{
+class loginController{
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class LoginController{
         if(isset($res['id'])){
             session_start();
             $_SESSION = $res;
-            header('Location: home.php');
+            header('Location: ../home/home');
         }else{
             return $res;
 

@@ -32,6 +32,7 @@
             while($row = mysqli_fetch_assoc($res)){
                 $data['id'][$i] = $row['id_submenu'];
                 $data['nombre'][$i] = $row['nombre'];
+                $data['url'][$i] = $row['url'];
                 $i++;
             }
             return $data;

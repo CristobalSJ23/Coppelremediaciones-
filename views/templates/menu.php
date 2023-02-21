@@ -11,10 +11,11 @@
 					<div class="submenu-items">
 						
 						<ul>
-							<?php  				
+							<?php  	
+								// var_dump($menu['submenu'][$i]['url'][1]);	
 								foreach($menu['submenu'][$i]['nombre'] as $j=>$submenu) {							
 							?>
-							<li><a href="<?= $submenu ?>.php"> <?= $submenu ?></a></li>
+							<li><a href="<?= $menu['submenu'][$i]['url'][$j] ?>"> <?= $submenu ?></a></li>
 							<?php 
 								}
 							?>

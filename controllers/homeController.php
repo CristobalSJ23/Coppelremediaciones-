@@ -1,6 +1,6 @@
 <?php
     session_start();
-    class HomeController{
+    class homeController{
         public function __construct(){
             
             if(isset($_SESSION) && ($_SESSION['id']) != 0) {
