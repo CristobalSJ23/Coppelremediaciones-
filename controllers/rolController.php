@@ -75,5 +75,9 @@ class RolController{
 
         //return $res;
     }
+
+    public function edit() {
+        var_dump($_POST);
+    }
 }
 ?>
