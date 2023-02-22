@@ -32,7 +32,7 @@ class loginController{
         if(isset($res['id'])){
             session_start();
             $_SESSION = $res;
-            header('Location: ../home/home');
+            header('Location: ../home/dashboard');
         }else{
             return $res;
 

@@ -12,7 +12,7 @@
             }
         }
 
-        public function home(){
+        public function dashboard(){
             $menu = $this->menu->getMenu($_SESSION['rol']);
             foreach($menu['id_rol'] as $i=>$men) {
                 $decode = json_decode($menu['json_submenu'][$i]);
