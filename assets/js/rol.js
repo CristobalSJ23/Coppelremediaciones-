@@ -61,6 +61,17 @@ $(document).ready(function() {
 
     $('.save-rol').click(function() {
         var nombre = $('#imputNombre').val();
+        var idSubmenus = [];
+        var menu = $(this).data('menu');
+            
+        $("input[type=checkbox]:checked").each(function(){
+            idSubmenus.push([menu,this.value]);
+        });
+      
+        //var id = $(this).data('id');
+
+        console.log(idSubmenus);
+        
         if (nombre != '') {
             obj.url = '../rol/save';
             obj.data = { nombre: nombre };
@@ -92,7 +103,6 @@ function peticionAjax(datos) {
 
         },
         error: function(xhr, estatus) {
-
         }
     });
 }

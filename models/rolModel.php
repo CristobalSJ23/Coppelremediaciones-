@@ -84,11 +84,11 @@ class RolModel{
     }
 
 
-    public function getAllMenu(){
+   /*  public function getAllMenu(){
         $query "SELECT * FROM co_menus";
         $res=mysqli_query($this->con,$query);
         
 
-    }
+    } */
 }
 ?>

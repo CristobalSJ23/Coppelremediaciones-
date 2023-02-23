@@ -8,8 +8,7 @@
 			<li>
 				<a href="#"><?= $dato ?> <span class="icon icon-up-dir"></span></a>
 				<div class="submenu">
-					<div class="submenu-items">
-						
+					<div class="">					
 						<ul>
 							<?php  	
 								// var_dump($menu['submenu'][$i]['url'][1]);	

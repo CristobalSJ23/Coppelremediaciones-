@@ -66,8 +66,11 @@ class RolController{
         }
 
         $res = $this->rol->read($datos);
-        $resMenu=$this->menu->getAllMenu();
-        
+        $resMenu=$this->menu->getAllMenu();      
+        //$resSubmenu = $this->menu->getAllSubmenu($resMenu['id']);       
+        /* echo "<pre>"; 
+        var_dump($resSubmenu);
+        exit(); */
 
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
