@@ -82,5 +82,13 @@ class RolModel{
         $res = mysqli_query($this->con, $query);
         return true;
     }
+
+
+    public function getAllMenu(){
+        $query "SELECT * FROM co_menus";
+        $res=mysqli_query($this->con,$query);
+        
+
+    }
 }
 ?>

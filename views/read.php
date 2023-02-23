@@ -1,4 +1,10 @@
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<button type="button" class="btn btn-primary crear-rol">Crear nuevo rol</button>
 <table class="table">
   <thead>
     <tr>
@@ -14,7 +20,6 @@
   <tbody>
 
   <?php
-  echo "<br><br><br><br><br>";
  
   //
   //exit;
@@ -56,7 +61,7 @@
 
 
 
-<div class="modal fade bd-example-modal-lg editar_rol" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade  crear_rol_modal" tabindex="-1"  aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
     <div class="modal-header">
@@ -66,22 +71,50 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+
+          <form class="row g-3" method="POST" enctype="multipart/form-data">
+        <h2 style="font-weight: bold;">Registro de un nuevo rol de usuario</h2>
+        <div class="col-md-4">
+                        <label for="inputNombre" class="form-label">Nombre del rol de usuario:</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control" id="imputNombre" /required name="nombre" maxlength="50" placeholder="Escriba el nombre">
+                        </div>
+                        <?php if (isset($datos['errorRol'])) { ?>
+                            <div class="alert alert-danger"> <?= $datos['errorRol'] ?></div>
+                        <?php } ?>
+                    </div>
+
+                    <!-- aco -->
+                    <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Accordion Item #1
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                  </div>
+                </div>
+              </div>
+
+
+              
+            </div>
+        <!-- aco -->
+        
+           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary save-rol">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container text-center"> 
-  <div class="row"> 
-      <div class="col">Column</div> 
-      <div class="col">Column</div>
-    </div> 
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -96,3 +129,4 @@
     </div>
   </div>
 </div>
+

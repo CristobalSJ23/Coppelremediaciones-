@@ -66,7 +66,8 @@ class RolController{
         }
 
         $res = $this->rol->read($datos);
-
+        $resMenu=$this->menu->getAllMenu();
+        
 
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
@@ -81,5 +82,14 @@ class RolController{
       $data["res"] = "Tu registro se ha actualizado correctamente";
       echo json_encode($data); 
     }
+
+
+    public function save(){
+        var_dump($_POST);
+        
+        
+    }
 }
+
+
 ?>
