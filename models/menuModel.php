@@ -40,7 +40,7 @@
         }
 
         public function getAllMenu() {
-            $query = "SELECT * FROM co_menus WHERE estatus = 1";
+            $query = "SELECT * FROM co_menus";
             $res = mysqli_query($this->con,$query);
             $i = 0; 
             while($row = mysqli_fetch_assoc($res)){
@@ -57,12 +57,12 @@
         public function getAllSubmenu($id) {
             /* var_dump($id);
             exit; */
-            $query = "SELECT * FROM co_submenus WHERE id_menu = $id AND estatus = 1";
+            $query = "SELECT * FROM co_submenus WHERE id_menu = $id";
             $res = mysqli_query($this->con,$query);
             $i = 0; 
             while($row = mysqli_fetch_assoc($res)){
                 $data['id'][$i] = $row['id_submenu'];
-                $data['id'][$i] = $row['id_menu'];
+                $data['id_menu'][$i] = $row['id_menu'];
                 $data['nombre'][$i] = $row['nombre'];
                 $data['orden'][$i] = $row['orden'];
                 $data['descripcion'][$i] = $row['descripcion'];

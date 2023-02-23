@@ -85,28 +85,31 @@
             <table>
               <?php foreach($resMenu['nombre_menu'] as $i=>$rm) { ?>
                 <tr>
-                  <td>
-                    <div class="form-check">
-                      <input class="form-check-input accordion-button" type="checkbox" value="" id="flexCheckDefault" data-bs-toggle="collapse" data-bs-target="#<?= $i ?>-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                      <label class="form-check-label" for="flexCheckDefault">
-                        Default checkbox
-                      </label>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                      <button class="accordion-button" type="button" >
-                          <?= $rm ?>
-                        </button>
-                      </h2>
-                      <div id="<?= $i ?>-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                          <strong>This is the first item's accordion body.</strong> 
-                          It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. 
-                          These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any 
-                          of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the 
-                          <code>.accordion-body</code>, though the transition does limit overflow.
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input accordion" type="checkbox" value="" id="flexCheckDefault" data-bs-toggle="collapse" data-bs-target="#<?= $i ?>-collapseOne" aria-controls="panelsStayOpen-collapseOne">
+                    <label class="form-check-label" for="flexCheckDefault"></label>
+                  </div>
+                </td>
+
+                <td width="100%">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header accordion btn-primary" id="panelsStayOpen-headingOne">
+                      <button class="accordion btn btn-primary" type="button" width="100%"><?= $rm ?></button>
+                    </h2>
+                    <div id="<?= $i ?>-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                          <ul>
+                              <?php 
+                                //echo "<pre>";
+                                //var_dump($resMenu['submenu'][0]['id']);
+                               
+                              foreach($resMenu['submenu'][$i]['id'] as $j=>$rsm) {
+                                //var_dump($resMenu['submenu'][$j]['nombre']);
+                                ?>
+                              <li><?= $resMenu['submenu'][$i]['nombre'][$j] ?></li>
+                              <?php } ?>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -145,30 +148,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-      <div class="accordion" id="accordionExample">
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-              <?php foreach($resMenu['nombre_menu'] as $i=>$dato) { ?>
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#<?= $dato ?>" aria-expanded="true" aria-controls="<?= $dato ?>">
-                <?= $dato ?>
-              </button>               
-            </h2>
-            <div id="<?= $dato ?>" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <div class="form-check">                   
-                  <input class="form-check-input" type="checkbox" value="" id="submenu_">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    AAA
-                  </label>
-              
-                </div>      
-              </div>
-            </div>
-            <?php } ?>
-          </div>
-
-        </div>
