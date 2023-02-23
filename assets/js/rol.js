@@ -40,12 +40,17 @@ $(document).ready(function() {
         var id = $(this).data('id');
         var textHtml = $('.guardar_nombre_' + id).val();
         var selectHtml = $('.guardar_estatus_' + id).val();
-      
+        if(textHtml != ''){
         obj.url = '../rol/edit';
         obj.data = {id:id,nombre:textHtml,estatus:selectHtml};
         obj.type = 'POST';
+        obj.accion = 'update';
 
         peticionAjax(obj);
+        }else{
+            $('.mensaje_sistema').html('Favor de llenar el nombre del rol');
+            $("#mensajeModal").modal("show");
+        }
     });
 
 });
@@ -57,6 +62,12 @@ function peticionAjax(datos) {
         type:datos.type,
         dataType:'json',
         success:function(res) {
+            switch(datos.accion){
+                case "update":
+                    $('.mensaje_sistema').html(res.res);
+            $("#mensajeModal").modal("show");
+                break;
+            }
 
         },
         error:function(xhr, estatus) {

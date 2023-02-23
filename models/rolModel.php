@@ -73,5 +73,14 @@ class RolModel{
     }
         return $data;
     }
+     public function update($datos){
+       
+        $fecha = getdate();
+        $fecha_update = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "UPDATE co_roles SET nombre='".$datos['nombre']."', estatus=".$datos['estatus'].", fecha_up='".$fecha_update."' WHERE id_rol='".$datos['id']."'";
+        
+        $res = mysqli_query($this->con, $query);
+        return true;
+    }
 }
 ?>

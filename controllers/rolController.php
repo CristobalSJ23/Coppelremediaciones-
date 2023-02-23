@@ -77,7 +77,9 @@ class RolController{
     }
 
     public function edit() {
-        var_dump($_POST);
+      $res = $this->rol->update($_POST);
+      $data["res"] = "Tu registro se ha actualizado correctamente";
+      echo json_encode($data); 
     }
 }
 ?>
