@@ -93,16 +93,9 @@ class RolController{
       echo json_encode($data); 
     }
 
-
     public function save(){
-        echo "<pre>";
-        //var_dump($_POST);
-        //$m = 0;
         $resId = $this->rol->save($_POST['nombre']);
-
-        //echo $resId;
         $guardarRelacion = [];
-        //$array = array ();
         foreach($_POST['checkMenu'] as $i => $chkMenu){
             $resRelacion = $this->rol->getRelation($chkMenu);
             foreach($resRelacion['id'] as $j => $idSubMenu){
@@ -113,11 +106,13 @@ class RolController{
                 }
             }
             $formatoJson = json_encode(array('id'=>$guardarRelacion));
-            var_dump($formatoJson);
             $guardarRelRolMenu =$this->rol->saveRelation($resId,$chkMenu,$formatoJson);
             $guardarRelacion = [];
-            //var_dump($guardarRelacion);
         } 
+        $data["res"] = "Tu registro se ha agregado correctamente";
+        echo json_encode($data);
+        //$data["res"] = "Se ha agregado correctamente el Rol";
+        //echo json_encode($data); 
     }
 }
 

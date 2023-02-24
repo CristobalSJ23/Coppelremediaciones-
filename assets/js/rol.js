@@ -60,6 +60,7 @@ $(document).ready(function() {
     });
 
     $('.save-rol').click(function() {
+        event.preventDefault();
         var nombre = $('#imputNombre').val();
         var idSubmenus = [];
         var menu = $(this).data('menu');
@@ -71,7 +72,7 @@ $(document).ready(function() {
       
         //var id = $(this).data('id');
 
-        console.log(idSubmenus);
+        //console.log(idSubmenus);
         
         if (nombre != '') {
             obj.url = '../rol/save';
@@ -110,6 +111,10 @@ $(document).ready(function() {
         }
     });
 
+    $('.cerrarModal').click(function(){
+        $('.crear_rol_modal').modal("hide");
+    });
+
 
 
 });
@@ -125,6 +130,15 @@ function peticionAjax(datos) {
                 case "update":
                     $('.mensaje_sistema').html(res.res);
                     $("#mensajeModal").modal("show");
+                    break;
+                case "save":
+                    $('.crear_rol_modal').modal("hide");
+                    $('.mensaje_sistema').html(res.res);
+                    $('.mensaje').addClass("bg-success");
+                    $("#mensajeModal").modal("show");
+                    $('#imputNombre').val('');
+                    $('.abrir').click();
+                    $('input[type=checkbox]').prop("checked", false);
                     break;
             }
 

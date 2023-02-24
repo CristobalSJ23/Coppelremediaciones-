@@ -64,7 +64,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Registro de un nuevo rol de usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close cerrarModal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -123,7 +123,7 @@
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary save-rol">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary cerrarModal" data-dismiss="modal" >Cerrar</button>
       </div>
     </div>
   </div>
@@ -138,7 +138,7 @@
 <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header mensaje">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de sistema</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
