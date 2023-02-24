@@ -87,7 +87,7 @@
                 <tr>
                 <td>
                   <div class="form-check">
-                    <input class="form-check-input accordion" type="checkbox" value="" id="flexCheckDefault" data-bs-toggle="collapse" data-bs-target="#<?= $i ?>-collapseOne" aria-controls="panelsStayOpen-collapseOne">
+                    <input class="form-check-input accordion abrir" data-id="<?=$resMenu['id'][$i]?>" type="checkbox" value="" id="flexCheckDefault<?=$resMenu['id'][$i]?>" data-bs-toggle="collapse" data-bs-target="#<?= $i ?>-collapseOne" aria-controls="panelsStayOpen-collapseOne">
                     <label class="form-check-label" for="flexCheckDefault"></label>
                   </div>
                 </td>
@@ -107,7 +107,7 @@
                               foreach($resMenu['submenu'][$i]['id'] as $j=>$rsm) {
                                 //var_dump($resMenu['submenu'][$j]['nombre']);
                                 ?>
-                              <li><?= $resMenu['submenu'][$i]['nombre'][$j] ?></li>
+                              <li><input data-id="<?=$rsm?>" class="menu_<?=$resMenu['id'][$i]?>" type="checkbox"><?= $resMenu['submenu'][$i]['nombre'][$j] ?></li>
                               <?php } ?>
                           </ul>
                         </div>

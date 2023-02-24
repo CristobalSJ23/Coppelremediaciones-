@@ -84,6 +84,21 @@ $(document).ready(function() {
         }
     });
 
+    $('.abrir').click(function(){
+        var id = $(this).data('id');        
+        if($(this).prop("checked")){
+            $('#flexCheckDefault'+id).attr("value", id);
+            $('#flexCheckDefault'+id).attr("name", "checkMenu[]");
+               
+        }else{
+            $('#flexCheckDefault'+id).removeAttr("value");
+            $('#flexCheckDefault'+id).removeAttr("name");
+            $('.menu_'+id).prop("checked", false);
+
+
+        }
+
+    });
 
 });
 
