@@ -83,6 +83,30 @@ class RolModel{
         return true;
     }
 
+    public function save($nombre){
+        $fecha = getdate();
+        $fecha_registro = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "INSERT INTO co_roles (nombre,fecha_reg,estatus) VALUES ('".$nombre."','".$fecha_registro."',1)";
+        $res = mysqli_query($this->con, $query);
+        $id = mysqli_insert_id($this->con);
+        return $id;
+    }
+
+    public function getRelation($id){
+        $query = "SELECT * FROM co_submenus WHERE id_menu = $id;";
+        $res = mysqli_query($this->con,$query);
+        $i = 0;
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id'][$i] = $row['id_submenu'];
+            $i++;
+        }
+        return  $data;
+    }
+    public function saveRelation($idRol,$idMenu,$objJson){
+        $query = "INSERT INTO co_rel_rol_menu(id_rol,id_menu,json_submenu) VALUES ($idRol,$idMenu,'".$objJson."')";
+        $res = mysqli_query($this->con,$query);
+        return true;
+    }
 
    /*  public function getAllMenu(){
         $query "SELECT * FROM co_menus";

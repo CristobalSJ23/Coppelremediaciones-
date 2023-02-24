@@ -95,9 +95,29 @@ class RolController{
 
 
     public function save(){
-        var_dump($_POST);
-        
-        
+        echo "<pre>";
+        //var_dump($_POST);
+        //$m = 0;
+        $resId = $this->rol->save($_POST['nombre']);
+
+        //echo $resId;
+        $guardarRelacion = [];
+        //$array = array ();
+        foreach($_POST['checkMenu'] as $i => $chkMenu){
+            $resRelacion = $this->rol->getRelation($chkMenu);
+            foreach($resRelacion['id'] as $j => $idSubMenu){
+                foreach($_POST['checkSubMenu'] as $k => $checkSubMenu){
+                    if($checkSubMenu == $idSubMenu){
+                        array_push($guardarRelacion,$checkSubMenu);
+                    }
+                }
+            }
+            $formatoJson = json_encode(array('id'=>$guardarRelacion));
+            var_dump($formatoJson);
+            $guardarRelRolMenu =$this->rol->saveRelation($resId,$chkMenu,$formatoJson);
+            $guardarRelacion = [];
+            //var_dump($guardarRelacion);
+        } 
     }
 }
 

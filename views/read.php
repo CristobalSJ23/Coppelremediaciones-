@@ -69,7 +69,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" method="POST" enctype="multipart/form-data">
+        <form class="row g-3 frmGuardar" method="POST" enctype="multipart/form-data">
 
           <div class="col-md-4">
             <label for="inputNombre" class="form-label">Nombre del rol de usuario:</label>
@@ -107,7 +107,7 @@
                               foreach($resMenu['submenu'][$i]['id'] as $j=>$rsm) {
                                 //var_dump($resMenu['submenu'][$j]['nombre']);
                                 ?>
-                              <li><input data-id="<?=$rsm?>" class="menu_<?=$resMenu['id'][$i]?>" type="checkbox"><?= $resMenu['submenu'][$i]['nombre'][$j] ?></li>
+                              <li><input  data-id="<?=$rsm?>" class="menu_<?=$resMenu['id'][$i]?> selectSubMenu" type="checkbox"><?= $resMenu['submenu'][$i]['nombre'][$j] ?></li>
                               <?php } ?>
                           </ul>
                         </div>

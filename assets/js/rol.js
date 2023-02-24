@@ -63,6 +63,7 @@ $(document).ready(function() {
         var nombre = $('#imputNombre').val();
         var idSubmenus = [];
         var menu = $(this).data('menu');
+        var datos = $(".frmGuardar").serialize();
             
         $("input[type=checkbox]:checked").each(function(){
             idSubmenus.push([menu,this.value]);
@@ -74,7 +75,7 @@ $(document).ready(function() {
         
         if (nombre != '') {
             obj.url = '../rol/save';
-            obj.data = { nombre: nombre };
+            obj.data = datos;
             obj.type = 'POST';
             obj.accion = 'save';
 
@@ -94,11 +95,22 @@ $(document).ready(function() {
             $('#flexCheckDefault'+id).removeAttr("value");
             $('#flexCheckDefault'+id).removeAttr("name");
             $('.menu_'+id).prop("checked", false);
-
-
         }
 
     });
+
+    $('.selectSubMenu').click(function(){
+        var id = $(this).data('id');
+        if($(this).prop("checked")){
+            $(this).attr("value",id);
+            $(this).attr("name","checkSubMenu[]");
+        }else{
+            $(this).removeAttr("value");
+            $(this).removeAttr("name");
+        }
+    });
+
+
 
 });
 
