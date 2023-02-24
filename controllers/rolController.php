@@ -34,24 +34,6 @@ class RolController{
         require_once("views/templates/footer.php");
     }
 
-    
-
-    public function saveRol($datos){
-        if(empty($datos['nombre'])){
-            $data['errorRol'] = 'Error. Debe escribir un nombre para el rol';
-        }
-        if(empty($datos['menusPrincipales'])){
-            $data['errorMenus'] = 'Error. Debe seleccionar al menos un menú';
-        }
-        if(empty($datos['menusSecundarios'])){
-            $data['errorSubMenus'] = 'Error. Debe seleccionar al menos un menú secundario';
-        }
-        if(isset($data)){
-            return $data;
-        }
-        $res = $this->rol->saveRol($datos['nombre'],$datos['menusPrincipales'],$datos['menusSecundarios']);
-        return $res;
-    }
 
     public function read($datos){
         $menu = $this->menu->getMenu($_SESSION['rol']);
@@ -95,24 +77,31 @@ class RolController{
 
     public function save(){
         $resId = $this->rol->save($_POST['nombre']);
-        $guardarRelacion = [];
+        $guardarRelacion["id"] = array();
         foreach($_POST['checkMenu'] as $i => $chkMenu){
             $resRelacion = $this->rol->getRelation($chkMenu);
             foreach($resRelacion['id'] as $j => $idSubMenu){
                 foreach($_POST['checkSubMenu'] as $k => $checkSubMenu){
                     if($checkSubMenu == $idSubMenu){
-                        array_push($guardarRelacion,$checkSubMenu);
+                        array_push($guardarRelacion["id"],$checkSubMenu);
                     }
                 }
             }
-            $formatoJson = json_encode(array('id'=>$guardarRelacion));
-            $guardarRelRolMenu =$this->rol->saveRelation($resId,$chkMenu,$formatoJson);
-            $guardarRelacion = [];
+            $formatoJson = json_encode($guardarRelacion);
+            $resultado = str_replace("[","",$formatoJson);
+            $resultado = str_replace("]","",$resultado);
+            $guardarRelRolMenu =$this->rol->saveRelation($resId,$chkMenu,$resultado);
+            $guardarRelacion["id"] = array();
         } 
         $data["res"] = "Tu registro se ha agregado correctamente";
         echo json_encode($data);
         //$data["res"] = "Se ha agregado correctamente el Rol";
         //echo json_encode($data); 
+    }
+
+    public function delete(){
+        $res = $this->rol->delete($_POST["idRol"]);
+        echo json_encode($res);
     }
 }
 

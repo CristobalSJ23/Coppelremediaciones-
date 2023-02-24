@@ -115,6 +115,15 @@ $(document).ready(function() {
         $('.crear_rol_modal').modal("hide");
     });
 
+    $('.eliminar').click(function(){
+        var id = $(this).data("id");
+        obj.url = '../rol/delete';
+        obj.data = {idRol: id};
+        obj.type = 'POST';
+        obj.accion = 'delete';
+        obj.id = id;
+        peticionAjax(obj);
+    });
 
 
 });
@@ -140,10 +149,17 @@ function peticionAjax(datos) {
                     $('.abrir').click();
                     $('input[type=checkbox]').prop("checked", false);
                     break;
+                case "delete":
+                    $('.editar_estatus_' + datos.id).removeClass("bg-success");
+                    $('.editar_estatus_' + datos.id).addClass("bg-warning");
+                    $('.editar_estatus_' + datos.id).html("INACTIVO");
+                break;
             }
 
         },
         error: function(xhr, estatus) {
         }
     });
+
+
 }
