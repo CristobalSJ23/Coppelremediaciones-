@@ -52,21 +52,12 @@ class RolController{
         foreach($resMenu['id'] as $i=>$rm) {          
             $resMenu['submenu'][$i] = $this->menu->getAllSubmenu($rm);  
         }
-        /* echo "<pre>";
-        var_dump($resMenu);
-        exit; */
-        
-            
-        /* echo "<pre>"; 
-        var_dump($resSubmenu);
-        exit(); */
 
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/read.php");
         require_once("views/templates/footer.php");
 
-        //return $res;
     }
 
     public function edit() {
