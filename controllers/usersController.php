@@ -3,6 +3,7 @@
  class usersController{
     public function __construct()
     {
+        $this->js='../assets/js/user.js';
         require_once("models/menuModel.php");
         $this->menu = new  MenuModel();
         
