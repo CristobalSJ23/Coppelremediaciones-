@@ -4,7 +4,10 @@
     public function __construct()
     {
         require_once("models/menuModel.php");
-        $this->menu = new  MenuModel();   
+        $this->menu = new  MenuModel();
+        
+        require_once("models/userModel.php");
+        $this->users = new userModel();
     }
 
     public function list(){
@@ -24,7 +27,7 @@
         foreach($resMenu['id'] as $i=>$rm) {          
             $resMenu['submenu'][$i] = $this->menu->getAllSubmenu($rm);  
         }
-
+        $res = $this->users->getusers();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/user.php");
