@@ -38,7 +38,7 @@ foreach($res['id_usuario'] as $i => $r){
           <div class="row editar_acciones_cancelar<?= $r ?>" style="display:none;"> 
               <div class="col">  <i class="bi bi-check2-circle btn save" data-id="<?= $r ?>"></i> </div> 
               <div class="col"><i class="bi bi-x-circle cancelar btn" data-id="<?=$r?>" data-nombre="<?= $res['nombre'][$i] ?>" data-paterno="<?=$res['apt_pat'][$i] ?>" 
-              data-materno="<?=$res['apt_mat'][$i] ?>" data-tipoUsuario="<?=$res['tipo_usuario'][$i] ?>" data-correo="<?=$res['correo'][$i] ?>" data-estatus="<?= $res['estatus'][$i];  ?>" data-color="<?= $res['bg'][$i]; ?>"></i></div>
+              data-materno="<?=$res['apt_mat'][$i] ?>" data-tipousuario="<?=$res['tipo_usuario'][$i] ?>" data-correo="<?=$res['correo'][$i] ?>" data-estatus="<?= $res['estatus'][$i];  ?>" data-color="<?= $res['bg'][$i]; ?>"></i></div>
               <div class="col"><i class="eliminar bi bi-trash btn" data-id="<?=$r?>"></i></div>
             </div> 
       </td>

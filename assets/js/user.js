@@ -42,7 +42,7 @@ $('.cancelar').click(function() {
     var htmlNombre = $(this).data('nombre');
     var htmlPaterno = $(this).data('paterno');
     var htmlMat = $(this).data('materno');
-    var htmltipoUsuario = $(this).data('tipoUsuario');
+    var htmltipoUsuario = $(this).data('tipousuario');
     alert(htmltipoUsuario);
     var htmlCorreo = $(this).data('correo');
     var htmleditarEstatus = $(this).data('estatus');
