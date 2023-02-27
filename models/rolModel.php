@@ -70,5 +70,26 @@ class RolModel{
         return true;
     }
 
+    public function getAllRoles() {
+        $query= "SELECT *, if(estatus=1,'ACTIVO','INACTIVO') AS estatus_rol,
+            if(estatus=1,'bg-success','bg-warning') AS estyles_rol FROM co_roles WHERE estatus = 1;";
+        $res = mysqli_query($this->con,$query);
+
+        $i=0;
+        if(mysqli_num_rows($res)>0){
+            while($row = mysqli_fetch_assoc($res)){
+                $data['id'][$i] = $row['id_rol'];
+                $data['nombre'][$i] = $row['nombre'];
+                $data['fecha_reg'][$i] = $row['fecha_reg'];
+                $data['fecha_up'][$i] = $row['fecha_up'];
+                $data['fecha_de'][$i] = $row['fecha_de'];
+                $data['estatus'][$i] = $row['estatus_rol'];
+                $data['bg'][$i] = $row['estyles_rol'];
+                $i++;
+            }
+            return $data;
+        }
+    }
+
 }
 ?>

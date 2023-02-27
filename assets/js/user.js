@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var obj = {};
     $('.editar').click(function() {
         var activo = '',
             inactivo = '';
@@ -67,7 +67,7 @@ $(document).ready(function() {
         var html_mat = $('.aptMat' + id).val();
         var html_us = $('.tipoUsuario' + id).val();
         var html_correo = $('.correo_editar' + id).val();
-        var html_estatus = $('.guarda_estatus_' + id).val();
+        var html_estatus = $('.guardar_estatus_' + id).val();
 
 
         $('.correo' + id).blur();
@@ -108,8 +108,8 @@ $(document).ready(function() {
             exit();
         }
 
-        var obj = {};
-        obj.url = '../users/save';
+        //var obj = {};
+        obj.url = '../users/update';
         obj.data = {
             id: id,
             nombre: html_nombre,
@@ -127,7 +127,49 @@ $(document).ready(function() {
 
 
 
-    })
+    });
+
+    $('.crear-usuario').click(function() {
+        $('.crear_usuario_modal').modal("show");
+
+    });
+
+    $('.save-user').click(function() {
+        event.preventDefault();
+        var nombre = $('#inputNombre').val();
+        var paterno = $('#inputPaterno').val();
+        var materno = $('#inputMaterno').val();
+        var tipoUsuario = $('#inputTipoUsuario').val();
+        var correo = $('#inputCorreo').val();
+        var password = $('#inputPassword').val();
+        var datos = $(".frmGuardar").serialize();
+
+        if (nombre != '' && paterno != '' && materno != '' && tipoUsuario != '' && correo != '' && password != '') {
+            obj.url = '../users/save';
+            obj.data = datos;
+            obj.type = 'POST';
+            obj.accion = 'save';
+
+            peticionAjax(obj);
+        } else {
+            alert('No hay nombre');
+        }
+    });
+
+    $('.eliminar').click(function(){
+        var id = $(this).data("id");
+        obj.url = '../users/delete';
+        obj.data = {idUser: id};
+        obj.type = 'POST';
+        obj.accion = 'delete';
+        obj.id = id;
+        
+        peticionAjax(obj);
+    });
+
+    $('.cerrarModal').click(function(){
+        $('.crear_usuario_modal').modal("hide");
+    });
 
     function peticionAjax(datos) {
         $.ajax({
@@ -138,14 +180,22 @@ $(document).ready(function() {
             success: function(res) {
                 switch (datos.accion) {
                     case "save":
+                        $(".frmGuardar")[0].reset();
+                        $('.crear_usuario_modal').modal("hide");
+                        $('.mensaje_sistema').html(res.res);
+                        $('.mensaje').addClass("bg-success");
+                        $("#mensajeModal").modal("show");                      
+                        break;
+
+                    case "update":
                         $('.mensaje_sistema').html(res.res);
                         $("#mensajeModal").modal("show");
                         break;
 
-                    case "update":
-                        break;
-
                     case "delete":
+                        $('.editar_estatus_' + datos.id).removeClass("bg-success");
+                        $('.editar_estatus_' + datos.id).addClass("bg-warning");
+                        $('.editar_estatus_' + datos.id).html("INACTIVO");
                         break;
                 }
             },

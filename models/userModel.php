@@ -37,5 +37,31 @@ class userModel{
         $res=mysqli_query($this->con,$query);
         return true;
     }
+
+    public function saveUser($datos) {
+        $fecha = getdate();
+        $fecha_in = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "INSERT INTO co_usuarios(nombre,apt_pat,apt_mat,tipo_usuario,correo,password,fecha_reg,estatus) 
+        VALUES ('".$datos['nombre']."','".$datos['paterno']."','".$datos['materno']."','".$datos['tipo_usuario']."','".$datos['correo']."','".$datos['password']."','".$fecha_in."',1);";
+        $res = mysqli_query($this->con,$query);
+        $id = mysqli_insert_id($this->con);
+        return $id;
+    }
+
+    public function deleteUser($id) {
+        $fecha = getdate();
+        $fecha_up = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "UPDATE co_usuarios SET fecha_de='".$fecha_up."',estatus = 0 WHERE id_usuario = $id";
+        $res = mysqli_query($this->con,$query);
+        return true;
+    }
+
+    public function saveUserRol($idUser, $idRol) {
+        $query = "INSERT INTO co_r_usu(id_usuario,id_rol) VALUES($idUser,$idRol)";
+        $res = mysqli_query($this->con, $query);
+        return true;
+    }
+
+
 }
 ?>
