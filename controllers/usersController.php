@@ -35,5 +35,13 @@
         require_once("views/templates/footer.php");
 
     }
+
+
+    public function save(){
+        
+        $res = $this->users->update($_POST);
+      $data["res"] = "Tu registro se ha actualizado correctamente";
+      echo json_encode($data); 
+    }
  }
 ?>

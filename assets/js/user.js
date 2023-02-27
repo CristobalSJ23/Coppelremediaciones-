@@ -20,7 +20,7 @@ $(document).ready(function() {
         $('.apt_pat' + id).html('<input name="aptPat' + id + '" class="aptPat' + id + '" value="' + htmlPaterno + '"/>');
         $('.apt_mat' + id).html('<input name="aptMat' + id + '" class="aptMat' + id + '" value="' + htmlMat + '"/>');
         $('.tipo_usuario' + id).html('<input name="tipoUsuario' + id + '" class="tipoUsuario' + id + '" value="' + htmltipoUsuario + '"/>');
-        $('.correo' + id).html('<input name="correo' + id + '" class="correo' + id + '" value="' + htmlCorreo + '"/>');
+        $('.correo' + id).html('<input name="correo' + id + '" class="correo_editar' + id + '" value="' + htmlCorreo + '"/>');
         $('.editar_estatus_' + id).html('<input name="editarEstatus' + id + '" class="editarEstatus' + id + '" value="' + htmleditarEstatus + '"/>');
 
         $('.editar_estatus_' + id).removeClass(color);
@@ -66,10 +66,10 @@ $(document).ready(function() {
         var html_pat = $('.aptPat' + id).val();
         var html_mat = $('.aptMat' + id).val();
         var html_us = $('.tipoUsuario' + id).val();
-        var html_correo = $('.correo' + id).val();
+        var html_correo = $('.correo_editar' + id).val();
         var html_estatus = $('.guarda_estatus_' + id).val();
 
-        alert(html_correo);
+
         $('.correo' + id).blur();
 
         if (html_nombre == '') {
@@ -108,10 +108,55 @@ $(document).ready(function() {
             exit();
         }
 
+        var obj = {};
+        obj.url = '../users/save';
+        obj.data = {
+            id: id,
+            nombre: html_nombre,
+            html_pat: html_pat,
+            html_mat: html_mat,
+            html_us: html_us,
+            html_correo: html_correo,
+            html_estatus: html_estatus
+        };
 
+        obj.type = 'POST';
+        obj.accion = 'update';
+
+        peticionAjax(obj);
 
 
 
     })
+
+    function peticionAjax(datos) {
+        $.ajax({
+            url: datos.url,
+            data: datos.data,
+            type: datos.type,
+            dataType: 'json',
+            success: function(res) {
+                switch (datos.accion) {
+                    case "save":
+                        $('.mensaje_sistema').html(res.res);
+                        $("#mensajeModal").modal("show");
+                        break;
+
+                    case "update":
+                        break;
+
+                    case "delete":
+                        break;
+                }
+            },
+            error: function(xhr, estatus) {
+
+            }
+        });
+
+
+    }
+
+
 
 });

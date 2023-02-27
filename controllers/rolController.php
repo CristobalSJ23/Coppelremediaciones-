@@ -94,6 +94,8 @@ class RolController{
         $res = $this->rol->delete($_POST["idRol"]);
         echo json_encode($res);
     }
+
+    
 }
 
 

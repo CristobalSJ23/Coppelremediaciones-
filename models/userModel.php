@@ -29,5 +29,13 @@ class userModel{
         }
         return $data;
     }
+
+    public function update($datos){
+        $fecha = getdate();
+        $fecha_up = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "UPDATE co_usuarios SET nombre='".$datos['nombre']."', apt_pat='".$datos['html_pat']."', apt_mat ='".$datos['html_mat']."', tipo_usuario='".$datos['html_us']."', correo='".$datos['html_correo']."', fecha_up='".$fecha_up."', estatus='".$datos['html_estatus']."' WHERE id_usuario='".$datos['id']."'  "; 
+        $res=mysqli_query($this->con,$query);
+        return true;
+    }
 }
 ?>
