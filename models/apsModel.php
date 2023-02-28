@@ -28,5 +28,11 @@ class apsModel{
         $res = mysqli_query($this->con, $query);
         return true;
     }
+
+    public function deleteAps($id) { 
+        $query = "UPDATE co_aps SET estatus = 0 WHERE id_aps =".$id;
+        $res = mysqli_query($this->con,$query);
+        return true;
+    }
 }
 ?>

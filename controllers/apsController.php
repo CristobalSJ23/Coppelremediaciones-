@@ -33,5 +33,10 @@ class apsController{
         $data["res"] = "Tu registro se ha actualizado correctamente";
         echo json_encode($data); 
     }
+
+    public function delete(){
+        $res = $this->aps->deleteAps($_POST);
+        echo json_encode($res);
+    }
 }
 ?>

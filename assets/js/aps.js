@@ -59,6 +59,16 @@ $(document).ready(function(){
     
 });
 
+$('.eliminar').click(function(){
+    var id = $(this).data('id');
+    obj.url = '../aps/delete';
+        obj.data = {idAps: id};
+        obj.type = 'POST';
+        obj.accion = 'delete';
+        obj.id = id;
+    peticionAjax(obj);
+})
+
 function peticionAjax(datos) {
     $.ajax({
         url: datos.url,
@@ -72,9 +82,12 @@ function peticionAjax(datos) {
                     $("#mensajeModal").modal("show");
                     break;
                 case "save":
-
+                    
                     break;
                 case "delete":
+                    $('.estatusAps' + datos.id).removeClass("bg-success");
+                    $('.estatusAps' + datos.id).addClass("bg-warning");
+                    $('.estatusAps' + datos.id).html("INACTIVO");
                    
                 break;
             }
