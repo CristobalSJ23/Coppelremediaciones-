@@ -2,7 +2,7 @@
 session_start();
 class apsController{
     public function __construct(){
-        $this->js='../assets/js/user.js';
+        $this->js='../assets/js/aps.js';
         require_once("models/menuModel.php");
         $this->menu = new  MenuModel();
         require_once('models/apsModel.php');
