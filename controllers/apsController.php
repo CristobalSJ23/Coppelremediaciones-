@@ -27,5 +27,11 @@ class apsController{
         require_once("views/templates/footer.php");
         
     }
+
+    public function edit() {
+        $res = $this->aps->editAps($_POST);
+        $data["res"] = "Tu registro se ha actualizado correctamente";
+        echo json_encode($data); 
+    }
 }
 ?>

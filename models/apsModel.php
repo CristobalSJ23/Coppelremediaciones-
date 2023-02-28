@@ -11,16 +11,22 @@ class apsModel{
         $res = mysqli_query($this->con,$query);
         $count = 0;
         if(mysqli_num_rows($res)>0){
-        while($row=mysqli_fetch_assoc($res)){
-            $data['id'][$count] = $row['id_aps'];
-            $data['nombre'][$count] = $row['nombre'];
-            $data['estatus_aps'][$count] = $row['estatus_aps'];
-            $data['colores_aps'][$count] = $row['colores_aps'];
-            $data['fecha_reg'][$count] = $row['fecha_reg'];
-            $count++;
+            while($row=mysqli_fetch_assoc($res)){
+                $data['id'][$count] = $row['id_aps'];
+                $data['nombre'][$count] = $row['nombre'];
+                $data['estatus_aps'][$count] = $row['estatus_aps'];
+                $data['colores_aps'][$count] = $row['colores_aps'];
+                $data['fecha_reg'][$count] = $row['fecha_reg'];
+                $count++;
+            }
         }
-    }
         return $data;
+    }
+
+    public function editAps($datos) {
+        $query = "UPDATE co_aps SET nombre = '".$datos['nombre']."', estatus = '".$datos['estatus']."' WHERE id_aps = '".$datos["id"]."' ";
+        $res = mysqli_query($this->con, $query);
+        return true;
     }
 }
 ?>

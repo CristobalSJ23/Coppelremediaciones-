@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var obj = {};
     $('.editar').click(function(){
         var activo = '', inactivo = '';
         var id = $(this).data('id');
@@ -20,6 +21,7 @@ $(document).ready(function(){
         $('.editar_acciones_'+id).hide();
         $('.editar_acciones_cancelar_'+id).removeAttr('style');
     });
+
     $('.cancelar').click(function(){
         var id = $(this).data('id');
         var htmlNombre = $(this).data('nombre');
@@ -33,5 +35,54 @@ $(document).ready(function(){
         $('.editar_acciones_'+id).show();
         $('.editar_acciones_cancelar_'+id).hide();
     });
+
+    $('.save').click(function() {
+        event.preventDefault();
+        var id = $(this).data('id');
+        var nombre = $('.editarNombre' + id).val();
+        var estatus = $('.guardarEstatus'+ id).val();
+
+        //alert(id, estatus);
+
+        if(nombre != '') {
+            obj.url = '../aps/edit';
+            obj.data = {id:id, nombre: nombre, estatus: estatus};
+            obj.type = 'POST';
+            obj.accion = 'update';
+
+            peticionAjax(obj);
+        } else {
+            $('.mensaje_sistema').html('Favor de llenar el nombre');
+            $("#mensajeModal").modal("show");
+        }
+    });
     
 });
+
+function peticionAjax(datos) {
+    $.ajax({
+        url: datos.url,
+        data: datos.data,
+        type: datos.type,
+        dataType: 'json',
+        success: function(res) {
+            switch (datos.accion) {
+                case "update":
+                    $('.mensaje_sistema').html(res.res);
+                    $("#mensajeModal").modal("show");
+                    break;
+                case "save":
+
+                    break;
+                case "delete":
+                   
+                break;
+            }
+
+        },
+        error: function(xhr, estatus) {
+        }
+    });
+
+
+}
