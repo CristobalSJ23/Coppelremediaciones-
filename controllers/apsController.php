@@ -1,6 +1,7 @@
 <?php
 session_start();
-class apsController{
+require_once(__DIR__.'/../core/coreController.php');
+class apsController extends coreController{
     public function __construct(){
         $this->js='../assets/js/aps.js';
         require_once("models/menuModel.php");
@@ -10,16 +11,6 @@ class apsController{
     }
 
     public function aps(){
-        $menu = $this->menu->getMenu($_SESSION['rol']);
-        foreach($menu['id_rol'] as $i=>$men) {
-            $decode = json_decode($menu['json_submenu'][$i]);
-            $id_submenu = explode(",",$decode->id);
-            
-            foreach($id_submenu as $id) {
-                $submenu = $this->menu->getSubMenu(implode(",", $id_submenu));
-                $menu['submenu'][$i] = $submenu;                    
-            }             
-        }
         $res = $this->aps->listAps();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");

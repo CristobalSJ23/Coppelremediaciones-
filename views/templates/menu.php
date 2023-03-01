@@ -3,7 +3,7 @@
 		<ul>
 			<li><a href="index.php">Inicio <span class="icon icon-up-dir"></span></a></li>
 			<?php 
-				foreach($menu['nombre_menu'] as $i=>$dato) {
+				foreach($this->menu['nombre_menu'] as $i=>$dato) {
 			?>
 			<li>
 				<a href="#"><?= $dato ?> <span class="icon icon-up-dir"></span></a>
@@ -12,9 +12,9 @@
 						<ul>
 							<?php  	
 								// var_dump($menu['submenu'][$i]['url'][1]);	
-								foreach($menu['submenu'][$i]['nombre'] as $j=>$submenu) {							
+								foreach($this->menu['submenu'][$i]['nombre'] as $j=>$submenu) {							
 							?>
-							<li><a href="<?= $menu['submenu'][$i]['url'][$j] ?>"> <?= $submenu ?></a></li>
+							<li><a href="<?= $this->menu['submenu'][$i]['url'][$j] ?>"> <?= $submenu ?></a></li>
 							<?php 
 								}
 							?>
