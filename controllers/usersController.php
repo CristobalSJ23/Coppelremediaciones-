@@ -1,12 +1,10 @@
 <?php
-    session_start();
     require_once(__DIR__.'/../core/coreController.php');
  class usersController extends coreController{
     public function __construct()
     {
+        parent::__construct();
         $this->js='../assets/js/user.js';
-        require_once("models/menuModel.php");
-        $this->menu = new  MenuModel();
         
         require_once("models/userModel.php");
         $this->users = new userModel();
@@ -16,10 +14,7 @@
     }
 
     public function list(){
-        $resMenu=$this->menu->getAllMenu();  
-        foreach($resMenu['id'] as $i=>$rm) {          
-            $resMenu['submenu'][$i] = $this->menu->getAllSubmenu($rm);  
-        }
+       
         $roles = $this->rol->read();
         $res = $this->users->getusers();
         require_once("views/templates/header.php");
