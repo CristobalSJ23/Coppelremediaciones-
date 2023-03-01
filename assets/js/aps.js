@@ -96,6 +96,10 @@ $(document).ready(function(){
             alert('No hay nombre');
         }
     });
+
+    $('.cerrarModal').click(function(){
+        $('.crearModal').modal("hide");
+    });
     
 });
 
