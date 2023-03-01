@@ -3,8 +3,8 @@ session_start();
 class coreController{
     public function __construct(){
         require_once(__DIR__.'/../models/menuModel.php');
-        $menu = new MenuModel();
-        $this->menu = $this->crearMenu($menu,$_SESSION['rol']);
+        $this->instanciaMenu = new MenuModel();
+        $this->menu = $this->crearMenu($this->instanciaMenu,$_SESSION['rol']);
     }
     private function crearMenu($instancia,$rol){
         $menu = $instancia->getMenu($rol);

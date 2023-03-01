@@ -49,25 +49,57 @@ $(document).ready(function(){
             obj.data = {id:id, nombre: nombre, estatus: estatus};
             obj.type = 'POST';
             obj.accion = 'update';
+            $(".nombreAps"+id).html(nombre);
+            if(estatus==1){
+                $(".estatusAps"+id).html("ACTIVO");
+                $(".estatusAps"+id).addClass("bg-success");
+            }else{
+                $(".estatusAps"+id).html("INACTIVO");
+                $(".estatusAps"+id).addClass("bg-warning");
 
+            }
+            $('.editar_acciones_'+id).show();
+            $('.editar_acciones_cancelar_'+id).hide();
             peticionAjax(obj);
         } else {
             $('.mensaje_sistema').html('Favor de llenar el nombre');
             $("#mensajeModal").modal("show");
         }
     });
+
+    $('.eliminar').click(function(){
+        var id = $(this).data('id');
+        obj.url = '../aps/delete';
+            obj.data = {idAps: id};
+            obj.type = 'POST';
+            obj.accion = 'delete';
+            obj.id = id;
+        peticionAjax(obj);
+    });
+
+    $(".agregarNuevo").click(function(){
+        $(".crearModal").modal("show");
+    });
+
+    $(".saveModal").click(function(){
+        event.preventDefault();
+        var nombre = $('#imputNombre').val();
+        var datos = $(".frmGuardar").serialize();
+        if (nombre != ''){
+            obj.url = '../aps/save';
+            obj.data = datos;
+            obj.type = 'POST';
+            obj.accion = 'save';
+
+            peticionAjax(obj);
+        } else {
+            alert('No hay nombre');
+        }
+    });
     
 });
 
-$('.eliminar').click(function(){
-    var id = $(this).data('id');
-    obj.url = '../aps/delete';
-        obj.data = {idAps: id};
-        obj.type = 'POST';
-        obj.accion = 'delete';
-        obj.id = id;
-    peticionAjax(obj);
-})
+
 
 function peticionAjax(datos) {
     $.ajax({
@@ -79,9 +111,16 @@ function peticionAjax(datos) {
             switch (datos.accion) {
                 case "update":
                     $('.mensaje_sistema').html(res.res);
+                    $('.mensaje').addClass("bg-success");
                     $("#mensajeModal").modal("show");
                     break;
                 case "save":
+                    $(".frmGuardar")[0].reset();
+                    $('.crearModal').modal("hide");
+                    $('.mensaje_sistema').html(res.res);
+                    $('.mensaje').addClass("bg-success");
+                    $("#mensajeModal").modal("show");  
+                    console.log(res.res);
                     
                     break;
                 case "delete":

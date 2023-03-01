@@ -1,11 +1,9 @@
 <?php
-session_start();
 require_once(__DIR__.'/../core/coreController.php');
 class apsController extends coreController{
     public function __construct(){
+        parent::__construct();
         $this->js='../assets/js/aps.js';
-        require_once("models/menuModel.php");
-        $this->menu = new  MenuModel();
         require_once('models/apsModel.php');
         $this->aps = new apsModel();
     }
@@ -28,6 +26,12 @@ class apsController extends coreController{
     public function delete(){
         $res = $this->aps->deleteAps($_POST);
         echo json_encode($res);
+    }
+
+    public function save(){
+        $res = $this->aps->saveAps($_POST);
+        $data["res"] = "Tu registro se ha agregado correctamente";
+        echo json_encode($data);
     }
 }
 ?>

@@ -34,5 +34,13 @@ class apsModel{
         $res = mysqli_query($this->con,$query);
         return true;
     }
+
+    public function saveAps($datos){
+        $fecha = getdate();
+        $fecha = $fecha["year"]."-".$fecha["mon"]."-".$fecha["mday"];
+        $query = "INSERT INTO co_aps (nombre,estatus,fecha_reg) VALUES ('".$datos['nombre']."', 1, '$fecha')";
+        $res=mysqli_query($this->con, $query);
+        return true;
+    }
 }
 ?>

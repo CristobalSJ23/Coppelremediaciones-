@@ -1,13 +1,10 @@
 <?php
-session_start();
 require_once(__DIR__.'/../core/coreController.php');
 class RolController extends coreController{
     public function __construct(){
+        parent::__construct();
         if(isset($_SESSION) && ($_SESSION['id']) != 0) {
-            require_once("models/menuModel.php");
             require_once("models/rolModel.php");
-
-            $this->menu = new  MenuModel();
             $this->rol = new  RolModel();
             $this->js='../assets/js/rol.js';
 
@@ -28,9 +25,9 @@ class RolController extends coreController{
 
     public function read($datos){
         $res = $this->rol->read($datos);
-        $resMenu=$this->menu->getAllMenu();  
+        $resMenu=$this->instanciaMenu->getAllMenu();  
         foreach($resMenu['id'] as $i=>$rm) {          
-            $resMenu['submenu'][$i] = $this->menu->getAllSubmenu($rm);  
+            $resMenu['submenu'][$i] = $this->instanciaMenu->getAllSubmenu($rm);  
         }
 
         require_once("views/templates/header.php");

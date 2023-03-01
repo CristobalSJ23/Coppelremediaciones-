@@ -143,7 +143,7 @@ $(document).ready(function() {
         var correo = $('#inputCorreo').val();
         var password = $('#inputPassword').val();
         var datos = $(".frmGuardar").serialize();
-
+        
         if (nombre != '' && paterno != '' && materno != '' && tipoUsuario != '' && correo != '' && password != '') {
             obj.url = '../users/save';
             obj.data = datos;
