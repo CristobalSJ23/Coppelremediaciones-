@@ -35,20 +35,13 @@
                             <td class="nombrePal<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['nombre'][$i] ?></td>
                             <td class="nombreLeng<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['lenguaje'][$i] ?></td>
                             <td>
-                                <div class="row editar_acciones_<?= $pal ?>" style="width:100%;">
-                                    <div class="col"><i class="editar bi bi-pencil-square btn" data-id="<?= $pal ?>"></i>
-                                    </div>
-                                    <div class="col"><i class="eliminar bi bi-trash btn" data-id="<?= $pal ?>"></i></div>
-                                </div>
-                                <div class="row editar_acciones_cancelar<?= $pal ?>" style="display:none;">
-                                    <div class="col"> <i class="save bi bi-check2-circle btn" data-id="<?= $pal ?>"></i>
-                                    </div>
-                                    <div class="col"><i class="cancelar bi bi-x-circle btn" data-id="<?= $pal ?>"
-                                            data-nombre="<?= $res['nombre'][$i] ?>"
-                                            data-estatus="<?= $res['estatus'][$i]; ?>"
-                                            data-color="<?= $res['bg'][$i]; ?>"></i></div>
-                                    <div class="col"><i class="eliminar bi bi-trash btn" data-id="<?= $pal ?>"></i></div>
-                                </div>
+                            <i class="editar bi bi-pencil-square btn editar<?= $pal ?>"  data-id="<?= $pal ?>"></i>
+                            <i class="eliminar bi bi-trash btn eliminar<?= $pal ?>" data-id="<?= $pal ?>"></i>
+                            
+                            <i class="save bi bi-check2-circle btn save<?= $pal ?>" data-id="<?= $pal ?>"  style="display:none"></i>
+                            <i class="cancelar bi bi-x-circle btn cancelar<?= $pal ?>" data-id="<?= $pal ?>" style="display:none"
+                                            data-nombre="<?= $resPalabras['nombre'][$i] ?>"
+                                            data-lenguaje="<?= $resPalabras['lenguaje'][$i]; ?>"></i>
                             </td>
                         </tr>
                     <?php } ?>
