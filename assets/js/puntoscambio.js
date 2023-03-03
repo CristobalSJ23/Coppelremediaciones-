@@ -32,6 +32,7 @@ $(document).ready(function() {
 
         peticionAjax(obj);
     });
+
     $('.cancelar').click(function(){
         var id = $(this).data('id');
         var nombre = $(this).data('nombre');
@@ -51,7 +52,8 @@ $(document).ready(function() {
     $('.save').click(function(){
         var id = $(this).data('id');
         var nombrePal = $('.editarNombrepal' + id).val();
-        var nombreLeng = $('.editarNombreLeng' + id).val();
+        var nombreLeng = $('.language' + id).val();
+        var lenguaje = $('.recuperarNombre' +nombreLeng).data("nombreleng");
 
         if(nombrePal == ''){
             $('.mensaje_sistema').html('El campo palabra no puede estar vacio');
@@ -67,7 +69,7 @@ $(document).ready(function() {
         }
 
         $('.nombrePal' + id).html(nombrePal);
-        $('.nombreLeng' + id).html(nombreLeng);
+        $('.nombreLeng' + id).html(lenguaje);
         $('.save' + id).hide();
         $('.cancelar' + id).hide();
         $('.editar' + id).show();
@@ -87,6 +89,71 @@ $(document).ready(function() {
 
     });
 
+    $(".eliminar").click(function(){
+        var id = $(this).data('id');
+        $(".eliminarFila"+id).hide();
+        obj.url = '../puntoscambio/delete';
+        obj.data = {
+            id: id
+        };
+
+        obj.type = 'POST';
+        obj.accion = 'delete';
+
+        peticionAjax(obj);
+    });
+
+    $(".guardarPalabra").click(function(){
+        event.preventDefault();
+        var palabra = $("#palabra").val();
+        var datos = $("#formPalabra").serialize();
+        alert("hola");
+
+        if(palabra == ''){
+            $('.mensaje_sistema').html('El campo palabra no puede estar vacio');
+            $('.mensaje').addClass("bg-warning");
+            $('#mensajeModal').modal('show');
+            exit();
+        }
+
+        obj.url = '../puntoscambio/savePalabra';
+        obj.data = datos;
+        obj.type = 'POST';
+        obj.accion = 'savePalabra';
+
+        peticionAjax(obj);
+
+
+    });
+
+    $(".guardarLenguaje").click(function(){
+        event.preventDefault();
+        var lenguaje = $("#lenguaje").val();
+        var lenguajeExt = $("#lenguajeExtension").val();
+        if(lenguaje == ''){
+            $('.mensaje_sistema').html('El campo lenguaje no puede estar vacio');
+            $('.mensaje').addClass("bg-warning");
+            $('#mensajeModal').modal('show');
+            exit();
+        }
+        if(lenguajeExt == ''){
+            $('.mensaje_sistema').html('El campo de extension no puede estar vacio');
+            $('.mensaje').addClass("bg-warning");
+            $('#mensajeModal').modal('show');
+            exit();
+        }
+
+        obj.url = '../puntoscambio/saveLanguage';
+        obj.data = {
+            lenguaje: lenguaje,
+            lenguajeExtension: lenguajeExt
+        };
+        obj.type = 'POST';
+        obj.accion = 'saveLanguage';
+
+        peticionAjax(obj);
+    })
+
     
 });
 
@@ -102,6 +169,12 @@ function peticionAjax(datos) {
                                       
                     break;
 
+                case "saveLanguage":
+                    $('.mensaje_sistema').html(res);
+                    $("#mensajeModal").modal("show");
+                    alert(res);
+                break;
+
                 case "update":
                     $('.mensaje_sistema').html(res.res);
                     $("#mensajeModal").modal("show");
@@ -109,16 +182,18 @@ function peticionAjax(datos) {
                     break;
 
                 case "delete":
+                    $('.mensaje_sistema').html(res);
+                    $("#mensajeModal").modal("show");
                     break;
 
                 case "crearSelect":
                     var crearSelect = '';
-                    crearSelect += '<select class="form-select" aria-label="Default select example">';
+                    crearSelect += '<select class="form-select language'+datos.idtd+'" aria-label="Default select example">';
                     $.each(res.id, function(key,data){
                         if(Number(data) == Number(datos.idLeng)){
-                            crearSelect += '<option value="'+data+'" selected>'+res.nombre[key]+'</option>'; 
+                            crearSelect += '<option value="'+data+'" class="recuperarNombre'+data+'" data-nombreleng="'+res.nombre[key]+'" selected>'+res.nombre[key]+'</option>'; 
                         }else{
-                            crearSelect += '<option value="'+data+'">'+res.nombre[key]+'</option>';
+                            crearSelect += '<option value="'+data+'" class="recuperarNombre'+data+'" data-nombreleng="'+res.nombre[key]+'" >'+res.nombre[key]+'</option>';
                         }
                     });
                     crearSelect += '</select>';

@@ -15,7 +15,17 @@
                         <?php } ?>
                     </select>
                 </div>
-                <button type="submit" class="guardar btn btn-primary">Guardar</button>
+                <button type="submit" class="guardarPalabra btn btn-primary">Guardar</button>
+            </form>
+            <br>
+            <form id="formLenguaje">
+                <div class="mb-3">
+                    <label for="lenguaje" class="form-label">¿No encuentras el lenguaje? Agregalo aquí:</label>
+                    <input name="lenguaje" type="text" class="form-control" id="lenguaje">
+                    <label for="lenguajeExtension" class="form-label">Agrega la extension del lenguaje:</label>
+                    <input name="lenguajeExtension" type="text" class="form-control" id="lenguajeExtension"/>
+                    <button type="submit" class="guardarLenguaje btn btn-primary">Guardar</button>
+                </div>
             </form>
         </div>
         <div class="col-9">
@@ -30,7 +40,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($resPalabras['id'] as $i => $pal) { ?>
-                        <tr>
+                        <tr class="eliminarFila<?= $pal ?>">
                             <th scope="row" value="<?= $pal ?>"><?= $pal ?></th>
                             <td class="nombrePal<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['nombre'][$i] ?></td>
                             <td class="nombreLeng<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['lenguaje'][$i] ?></td>

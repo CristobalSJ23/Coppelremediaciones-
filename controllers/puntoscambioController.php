@@ -28,6 +28,21 @@ class puntoscambioController extends coreController{
         echo json_encode($res);
     }
 
+    public function delete(){
+        $res = $this->puntos->delete($_POST["id"]);
+        echo json_encode("Tu registro ha sido eliminado");
+    }
+
+    public function savePalabra(){
+        $res = $this->puntos->savePalabra($_POST);
+        echo json_encode("Tu registro ha sido creado");
+    }
+
+    public function saveLanguage(){
+        $res = $this->puntos->saveLanguage($_POST);
+        echo json_encode("Tu registro ha sido creado");
+    }
+
     
 }
 ?>

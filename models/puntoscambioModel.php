@@ -36,7 +36,7 @@ class puntoscambioModel{
     }
 
     public function update($datos){
-        $query = "UPDATE palabras SET nombre_pal = '".$datos['nombre_pal']."' WHERE id_pal =".$datos['id'];
+        $query = "UPDATE palabras SET fk_id_leng =".$datos["nombre_leng"].", nombre_pal = '".$datos['nombre_pal']."' WHERE id_pal =".$datos['id'];
         $res = mysqli_query($this->con, $query);
         return true;
     }
@@ -51,6 +51,18 @@ class puntoscambioModel{
             $i++;
         }
         return $data;
+    }
+
+    public function delete($id){
+        $query = 'DELETE FROM palabras WHERE id_pal='.$id;
+        mysqli_query($this->con,$query);
+        return true;
+    }
+
+    public function saveLanguage($datos){
+        $query = "INSERT INTO lenguaje (nombre_leng,extension_leng) VALUES ('".$datos["lenguaje"]."', '".$datos["lenguajeExtension"]."')";
+        mysqli_query($this->con,$query);
+        return true;
     }
 }
 ?>
