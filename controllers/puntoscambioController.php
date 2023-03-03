@@ -17,6 +17,17 @@ class puntoscambioController extends coreController{
         require_once("views/templates/footer.php");
     }
 
+    public function update(){
+        $res = $this->puntos->update($_POST);
+        $data['res'] = 'Tu registro se ha actualizado correctamente';
+        echo json_encode($data);
+    }
+
+    public function crearSelect(){
+        $res = $this->puntos->getLenguajes();
+        echo json_encode($res);
+    }
+
     
 }
 ?>

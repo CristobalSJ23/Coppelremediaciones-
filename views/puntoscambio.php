@@ -35,7 +35,7 @@
                             <td class="nombrePal<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['nombre'][$i] ?></td>
                             <td class="nombreLeng<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['lenguaje'][$i] ?></td>
                             <td>
-                            <i class="editar bi bi-pencil-square btn editar<?= $pal ?>"  data-id="<?= $pal ?>"></i>
+                            <i class="editar bi bi-pencil-square btn editar<?= $pal ?>"  data-id="<?= $pal ?>" data-idlenguaje="<?= $resPalabras['idLeng'][$i] ?>"></i>
                             <i class="eliminar bi bi-trash btn eliminar<?= $pal ?>" data-id="<?= $pal ?>"></i>
                             
                             <i class="save bi bi-check2-circle btn save<?= $pal ?>" data-id="<?= $pal ?>"  style="display:none"></i>
