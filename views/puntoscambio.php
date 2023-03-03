@@ -1,4 +1,11 @@
 <br><br><br><br><br>
+
+<hr>
+<div class="container">
+    <button type="button" class="btn btn-primary agregarNuevo">Agrega un zip</button>
+
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-3">
@@ -23,7 +30,7 @@
                     <label for="lenguaje" class="form-label">¿No encuentras el lenguaje? Agregalo aquí:</label>
                     <input name="lenguaje" type="text" class="form-control" id="lenguaje">
                     <label for="lenguajeExtension" class="form-label">Agrega la extension del lenguaje:</label>
-                    <input name="lenguajeExtension" type="text" class="form-control" id="lenguajeExtension"/>
+                    <input name="lenguajeExtension" type="text" class="form-control" id="lenguajeExtension" />
                     <button type="submit" class="guardarLenguaje btn btn-primary">Guardar</button>
                 </div>
             </form>
@@ -45,18 +52,64 @@
                             <td class="nombrePal<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['nombre'][$i] ?></td>
                             <td class="nombreLeng<?= $pal ?>" data-id="<?= $pal ?>"><?= $resPalabras['lenguaje'][$i] ?></td>
                             <td>
-                            <i class="editar bi bi-pencil-square btn editar<?= $pal ?>"  data-id="<?= $pal ?>" data-idlenguaje="<?= $resPalabras['idLeng'][$i] ?>"></i>
-                            <i class="eliminar bi bi-trash btn eliminar<?= $pal ?>" data-id="<?= $pal ?>"></i>
-                            
-                            <i class="save bi bi-check2-circle btn save<?= $pal ?>" data-id="<?= $pal ?>"  style="display:none"></i>
-                            <i class="cancelar bi bi-x-circle btn cancelar<?= $pal ?>" data-id="<?= $pal ?>" style="display:none"
-                                            data-nombre="<?= $resPalabras['nombre'][$i] ?>"
-                                            data-lenguaje="<?= $resPalabras['lenguaje'][$i]; ?>"></i>
+                                <i class="editar bi bi-pencil-square btn editar<?= $pal ?>" data-id="<?= $pal ?>"
+                                    data-idlenguaje="<?= $resPalabras['idLeng'][$i] ?>"></i>
+                                <i class="eliminar bi bi-trash btn eliminar<?= $pal ?>" data-id="<?= $pal ?>"></i>
+
+                                <i class="save bi bi-check2-circle btn save<?= $pal ?>" data-id="<?= $pal ?>"
+                                    style="display:none"></i>
+                                <i class="cancelar bi bi-x-circle btn cancelar<?= $pal ?>" data-id="<?= $pal ?>"
+                                    style="display:none" data-nombre="<?= $resPalabras['nombre'][$i] ?>"
+                                    data-lenguaje="<?= $resPalabras['lenguaje'][$i]; ?>"></i>
                             </td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade  crearModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-center text-center">
+
+                        <form class="p-5  rounded-lg was-validated" method="post" id="formzip"
+                            enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="archivos" class="text-black label-st">
+                                    <h5>Por favor seleccione/arrastre un archivo ZIP: </h5>
+                                </label>
+
+                                <div class="input-group">
+
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-solid fa-folder"></i>
+                                        </span>
+                                    </div>
+
+
+                                    <input type="file" accept=".zip" class="form-control " id="archivos" required
+                                        name="envioarchivos">
+                                    <!-- "webkitdirectory directory multiple" parametro de html para insertar varios archivos-->
+                                    <div class="valid-feedback">Valido</div>
+                                    <div class="invalid-feedback">Complete este campo</div>
+                                </div>
+
+                            </div>
+                            <!-- <a class="btn btn-primary" href="login">Atras</a> -->
+                            <button type="submit" class="btn w-25 btn-primary1 guardarZip">Enviar</button>
+                            <button type="button" class="btn btn-secondary cerrarModal"
+                                data-dismiss="modal">Cerrar</button>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

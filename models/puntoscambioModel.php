@@ -64,5 +64,11 @@ class puntoscambioModel{
         mysqli_query($this->con,$query);
         return true;
     }
+
+    public function savePalabra($datos){
+        $query = "INSERT INTO palabras (nombre_pal, fk_id_leng) VALUES ('".$datos["palabraLenguaje"]."', '".$datos['selectorLenguaje']."')";
+        mysqli_query($this->con,$query);
+        return true;
+    }
 }
 ?>

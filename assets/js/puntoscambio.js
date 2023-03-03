@@ -107,7 +107,7 @@ $(document).ready(function() {
         event.preventDefault();
         var palabra = $("#palabra").val();
         var datos = $("#formPalabra").serialize();
-        alert("hola");
+        
 
         if(palabra == ''){
             $('.mensaje_sistema').html('El campo palabra no puede estar vacio');
@@ -120,6 +120,8 @@ $(document).ready(function() {
         obj.data = datos;
         obj.type = 'POST';
         obj.accion = 'savePalabra';
+
+        $('#formPalabra')[0].reset();
 
         peticionAjax(obj);
 
@@ -152,8 +154,34 @@ $(document).ready(function() {
         obj.accion = 'saveLanguage';
 
         peticionAjax(obj);
-    })
+    });
 
+    $(".agregarNuevo").click(function(){
+        $(".crearModal").modal("show");
+    });
+
+    $('.cerrarModal').click(function(){
+        $('.crearModal').modal("hide");
+    });
+
+    $("#formzip").on("submit",function(e){
+        e.preventDefault();
+        var f = $(this);
+        var formData = new FormData(document.getElementById("#formzip"));
+        $.ajax({
+            url: "../puntoscambio/leerZip",
+            type: "post",
+            dataType: "html",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+
+        })
+        .done(function(res){
+            alert ("hola");
+        });
+    });
     
 });
 
@@ -161,18 +189,25 @@ function peticionAjax(datos) {
     $.ajax({
         url: datos.url,
         data: datos.data,
+        cache: false,
         type: datos.type,
+        contentType: false,
+        processData: false,      
         dataType: 'json',
         success: function(res) {
             switch (datos.accion) {
-                case "save":
+                case "savePalabra":
+                    $('.mensaje_sistema').html(res);
+                    $("#mensajeModal").modal("show");
+                    
+                    
                                       
-                    break;
+                    break;    
 
                 case "saveLanguage":
                     $('.mensaje_sistema').html(res);
                     $("#mensajeModal").modal("show");
-                    alert(res);
+                    
                 break;
 
                 case "update":

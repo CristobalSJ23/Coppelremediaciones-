@@ -43,6 +43,30 @@ class puntoscambioController extends coreController{
         echo json_encode("Tu registro ha sido creado");
     }
 
+    public function leerZip(){
+        echo "hola";
+        exit;
+        $path_completo = $_FILES['envioarchivos']['name'];
+    $path_completo = str_replace('.zip', '', $path_completo);
+   
+    $ruta = $_FILES['envioarchivos']["tmp_name"];
+
+    // Función descomprimir 
+    $zip = new ZipArchive;
+    if ($zip->open($ruta) === TRUE) {
+        //función para extraer el ZIP
+        $extraido = $zip->extractTo('uploads/');
+        
+        $zip->close();
+
+        $dir = opendir('uploads/'.$path_completo);
+
+        buscarMultiplesPalabrasTabla('uploads/'.$path_completo,'php');
+
+        echo "PATH: ".$path_completo;
+    }
+}
+
     
 }
 ?>
