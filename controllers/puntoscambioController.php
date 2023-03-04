@@ -44,8 +44,6 @@ class puntoscambioController extends coreController{
     }
 
     public function leerZip(){
-        echo "hola";
-        exit;
         $path_completo = $_FILES['envioarchivos']['name'];
     $path_completo = str_replace('.zip', '', $path_completo);
    
@@ -55,18 +53,54 @@ class puntoscambioController extends coreController{
     $zip = new ZipArchive;
     if ($zip->open($ruta) === TRUE) {
         //función para extraer el ZIP
-        $extraido = $zip->extractTo('uploads/');
-        
+        $extraido = $zip->extractTo('uploads/');  
         $zip->close();
-
         $dir = opendir('uploads/'.$path_completo);
+       $getPalabras = $this->puntos->getPalabrasExtension('php');
 
-        buscarMultiplesPalabrasTabla('uploads/'.$path_completo,'php');
+       global $resultados;
+       $nombreCarpeta = 'uploads/'.$path_completo;
 
-        echo "PATH: ".$path_completo;
+       $contadorPC = 0;
+       $tabla = '';
+            if (is_dir($nombreCarpeta)) {
+                if ($dh = opendir($nombreCarpeta)) {
+                    $tabla.= "<table class='table' border='1'>";
+                    $tabla.= "<tr><th>Nombre Archivo</th>";
+                    foreach ($getPalabras as $palabra) {
+                        $tabla .= "<th>" . $palabra . "<\th>";
+                    }
+                    $tabla.= "</tr>";
+                    while (($archivo = readdir($dh)) ) {
+                        if($archivo != "." && $archivo != "..") {
+                            $rutaArchivo = $nombreCarpeta."/".$archivo;
+                            $contenido = file_get_contents($rutaArchivo);
+                            $result = array_fill_keys($getPalabras, 0);
+                            foreach ($getPalabras as $palabra) {
+                                $result[$palabra] = substr_count($contenido, $palabra);  
+                            }
+                            $tabla .= "<tr><td>" . $rutaArchivo . "</td>";
+                            foreach ($result as $palabra => $count) {
+                                $tabla .= "<td>" . $count . "</td>";
+                            }
+                            $tabla .= "</tr>";
+                        $resultados[] = array(
+                                'archivo' => $rutaArchivo,
+                                'resultados' => $result,
+                                'contadorPC' => $contadorPC,
+                            );
+                        }
+                        
+                    }
+                    $tabla .= "</table>";
+                    closedir($dh);
+                }
+            }
+
+           }
+           echo json_encode($tabla);
+        }
+ 
     }
-}
-
-    
-}
+  
 ?>

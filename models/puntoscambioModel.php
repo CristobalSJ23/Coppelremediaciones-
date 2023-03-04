@@ -70,5 +70,18 @@ class puntoscambioModel{
         mysqli_query($this->con,$query);
         return true;
     }
+
+    public function getPalabrasExtension($extension){
+        $query = "SELECT nombre_pal FROM palabras p 
+                 INNER JOIN lenguaje l ON p.fk_id_leng = l.id_leng
+                WHERE l.extension_leng = '{$extension}'";
+        $res = mysqli_query($this->con, $query);
+        $palabras = array();
+        while($row = mysqli_fetch_assoc($res)) {
+            array_push($palabras, $row['nombre_pal']);
+        } 
+        return $palabras; 
+
+    }
 }
 ?>

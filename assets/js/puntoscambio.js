@@ -167,7 +167,7 @@ $(document).ready(function() {
     $("#formzip").on("submit",function(e){
         e.preventDefault();
         var f = $(this);
-        var formData = new FormData(document.getElementById("#formzip"));
+        var formData = new FormData(document.getElementById("formzip"));
         $.ajax({
             url: "../puntoscambio/leerZip",
             type: "post",
@@ -179,7 +179,8 @@ $(document).ready(function() {
 
         })
         .done(function(res){
-            alert ("hola");
+            $('#creartabla').html(res);
+           
         });
     });
     
@@ -234,6 +235,8 @@ function peticionAjax(datos) {
                     crearSelect += '</select>';
                     $('.nombreLeng'+datos.idtd).html(crearSelect);
                     break;
+
+
             }
         },
         error: function(xhr, estatus) {
