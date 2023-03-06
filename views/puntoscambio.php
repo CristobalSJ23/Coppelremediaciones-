@@ -113,6 +113,4 @@
         </div>
     </div>
 </div>
-<div id='creartabla'>
-
-                    </div>
+<div id="creartabla"></div>

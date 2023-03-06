@@ -179,7 +179,20 @@ $(document).ready(function() {
 
         })
         .done(function(res){
-            $('#creartabla').html(res);
+            console.log(res.palabra);
+            /*var tabla='';
+            tabla += '<tabla class="tabla" border="1">';
+            tabla += '<thead> <tr>';
+            tabla += '<th>Nombre del Archivo</th>';
+            */
+            $.each(res, function(key,data){
+                //tabla += "<th>" + data + "</th>";
+                console.log(data);
+                console.log(data.palabra);
+            });
+
+            //tabla += '</tr> </thead>';
+            //$('#creartabla').html(tabla);
            
         });
     });

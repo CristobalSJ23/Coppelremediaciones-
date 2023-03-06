@@ -62,15 +62,16 @@ class puntoscambioController extends coreController{
        $nombreCarpeta = 'uploads/'.$path_completo;
 
        $contadorPC = 0;
-       $tabla = '';
+       $tabla = null;
+       $crearTabla = array();
             if (is_dir($nombreCarpeta)) {
                 if ($dh = opendir($nombreCarpeta)) {
-                    $tabla.= "<table class='table' border='1'>";
-                    $tabla.= "<tr><th>Nombre Archivo</th>";
-                    foreach ($getPalabras as $palabra) {
-                        $tabla .= "<th>" . $palabra . "<\th>";
+                    $tabla.='<table class=table border=1>';
+                    $tabla.="<tr><th>Nombre Archivo";
+                    foreach ($getPalabras as $i => $palabra ) {
+                        $crearTabla['palabra'][$i] = $palabra;
                     }
-                    $tabla.= "</tr>";
+                    //$tabla.= "</tr>";
                     while (($archivo = readdir($dh)) ) {
                         if($archivo != "." && $archivo != "..") {
                             $rutaArchivo = $nombreCarpeta."/".$archivo;
@@ -79,11 +80,11 @@ class puntoscambioController extends coreController{
                             foreach ($getPalabras as $palabra) {
                                 $result[$palabra] = substr_count($contenido, $palabra);  
                             }
-                            $tabla .= "<tr><td>" . $rutaArchivo . "</td>";
+                            $tabla.="<tr><td>".$rutaArchivo;
                             foreach ($result as $palabra => $count) {
-                                $tabla .= "<td>" . $count . "</td>";
+                                $tabla.="<td>".$count;
                             }
-                            $tabla .= "</tr>";
+                            //$tabla .= "</tr>";
                         $resultados[] = array(
                                 'archivo' => $rutaArchivo,
                                 'resultados' => $result,
@@ -92,13 +93,13 @@ class puntoscambioController extends coreController{
                         }
                         
                     }
-                    $tabla .= "</table>";
+                    //$tabla .= "</table>";
                     closedir($dh);
                 }
             }
 
            }
-           echo json_encode($tabla);
+           echo json_encode($crearTabla);
         }
  
     }
