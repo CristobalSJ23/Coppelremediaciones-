@@ -171,28 +171,44 @@ $(document).ready(function() {
         $.ajax({
             url: "../puntoscambio/leerZip",
             type: "post",
-            dataType: "html",
+            dataType: 'json',
             data: formData,
             cache: false,
             contentType: false,
             processData: false,
-
         })
         .done(function(res){
-            console.log(res.palabra);
-            /*var tabla='';
-            tabla += '<tabla class="tabla" border="1">';
+            var tabla='';
+            tabla += '<table class="table" border="1">';
             tabla += '<thead> <tr>';
             tabla += '<th>Nombre del Archivo</th>';
-            */
-            $.each(res, function(key,data){
-                //tabla += "<th>" + data + "</th>";
-                console.log(data);
-                console.log(data.palabra);
+            //console.log(res);
+            //console.log(res.result[0].if);
+            $.each(res.thead, function(key,data){
+                tabla += "<th>" + data + "</th>";
             });
 
-            //tabla += '</tr> </thead>';
-            //$('#creartabla').html(tabla);
+            tabla += "<th> Total </th>";
+            tabla += '</tr> </thead>';
+            tabla += '<tbody> ';
+            var result = res.result;
+            var contadorPC = 0;
+            
+            $.each(res.NombreArchivo, function(keyNombre,dataNombre){
+                tabla += '<tr>';
+                tabla += '<td>' + dataNombre + '</td>';
+                $.each(res.thead, function(key,data){
+                    tabla += '<td>' + result[keyNombre][data] + '</td>';
+                    contadorPC +=  result[keyNombre][data];
+                });
+                tabla += '<td>' + contadorPC + '</td>';
+                tabla += '</tr>';
+                contadorPC = 0
+            });
+            tabla += '</tbody>';
+
+            tabla += '</table>';
+            $('#creartabla').html(tabla);
            
         });
     });

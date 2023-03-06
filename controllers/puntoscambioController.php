@@ -61,17 +61,18 @@ class puntoscambioController extends coreController{
        global $resultados;
        $nombreCarpeta = 'uploads/'.$path_completo;
 
-       $contadorPC = 0;
+       //$contadorPC = 0;
        $tabla = null;
-       $crearTabla = array();
+       $crearTabla['thead'] = array();
+       $crearTabla['NombreArchivo'] = array();
+       $crearTabla['result'] = array();
+       //$crearTabla['contadorPC'] = array();
+
             if (is_dir($nombreCarpeta)) {
                 if ($dh = opendir($nombreCarpeta)) {
-                    $tabla.='<table class=table border=1>';
-                    $tabla.="<tr><th>Nombre Archivo";
                     foreach ($getPalabras as $i => $palabra ) {
-                        $crearTabla['palabra'][$i] = $palabra;
+                        array_push($crearTabla['thead'],$palabra);
                     }
-                    //$tabla.= "</tr>";
                     while (($archivo = readdir($dh)) ) {
                         if($archivo != "." && $archivo != "..") {
                             $rutaArchivo = $nombreCarpeta."/".$archivo;
@@ -80,24 +81,16 @@ class puntoscambioController extends coreController{
                             foreach ($getPalabras as $palabra) {
                                 $result[$palabra] = substr_count($contenido, $palabra);  
                             }
-                            $tabla.="<tr><td>".$rutaArchivo;
+                            array_push($crearTabla['NombreArchivo'],$rutaArchivo);
                             foreach ($result as $palabra => $count) {
-                                $tabla.="<td>".$count;
                             }
-                            //$tabla .= "</tr>";
-                        $resultados[] = array(
-                                'archivo' => $rutaArchivo,
-                                'resultados' => $result,
-                                'contadorPC' => $contadorPC,
-                            );
+                            array_push($crearTabla['result'],$result);
+                            //array_push($crearTabla['contadorPC'],$contadorPC);
                         }
-                        
                     }
-                    //$tabla .= "</table>";
                     closedir($dh);
                 }
             }
-
            }
            echo json_encode($crearTabla);
         }
