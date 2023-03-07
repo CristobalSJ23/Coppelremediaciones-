@@ -194,32 +194,57 @@ $(document).ready(function() {
             tabla += '<tbody> ';
             var result = res.result;
             var contadorPC = 0;
+            var id=0;
             
             $.each(res.NombreArchivo, function(keyNombre,dataNombre){
                 tabla += '<tr>';
-                tabla += '<td>' + dataNombre + '</td>';
+                tabla += '<td class = "urlarchivo">' + dataNombre + '</td>';
                 $.each(res.thead, function(key,data){
                     tabla += '<td>' + result[keyNombre][data] + '</td>';
                     contadorPC +=  result[keyNombre][data];
                 });
-                tabla += '<td>' + contadorPC + '</td>';
+                tabla += '<td class = "totalpc">' + contadorPC + '</td>';
                 tabla += '</tr>';
                 elemento = [];
                 elemento.push(dataNombre,contadorPC);
                 archivos.push(elemento);
                 contadorPC = 0;
+                id=keyNombre;
             });
             tabla += '</tbody>';
             tabla += '</table>';
+            // tabla += '<button type="button" class="guardarSistemas btn btn-primary btn-lg" data-id="'+id+'">Guardar puntos de cambio</button>';
             $('#creartabla').html(tabla);
             $('#divBotonZip').removeAttr('style');
+            $('.guardarSistemas').attr('data-id',id);
         });
     });
     
     $('.guardarSistemas').click(function(){
+        var nombresurl = [];
+        var totalpc = [];
+        var info = {};
+        $('.urlarchivo').each(function(index){
+            nombresurl[index]=$(this).text();
+            // console.log(index + " : " + $(this).text());
+        });
+        $('.totalpc').each(function(index){
+            totalpc[index]=$(this).text();
+            // console.log(index + " : " + $(this).text());
+        });
+        info.nombresurl=nombresurl;
+        info.totalpc=totalpc;
+
+        console.log(totalpc);
+        console.log(nombresurl);
+        var id = $(this).data('id');
+        var urlarchivo = $('.urlarchivo'+id).html();
+        var totalpc = $('.totalpc'+id).html();
+        // console.log(urlarchivo);
+        // console.log(totalpc);
         // Recorrer los elementos <td> de la tabla para obtener el elemento HTML
         obj.url = '../puntoscambio/saveSistemas';
-        obj.data = archivos;
+        obj.data = info;
         obj.type = 'POST';
         obj.accion = 'saveSistemas';
 
@@ -228,15 +253,10 @@ $(document).ready(function() {
 });
 
 function peticionAjax(datos) {
-    console.log("ajax");
-    console.log(datos);
     $.ajax({
         url: datos.url,
         data: datos.data,
-        cache: false,
-        type: datos.type,
-        contentType: false,
-        processData: false,      
+        type: datos.type,     
         dataType: 'json',
         success: function(res) {
             switch (datos.accion) {
