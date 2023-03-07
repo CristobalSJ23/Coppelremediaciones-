@@ -84,10 +84,11 @@ class puntoscambioModel{
 
     }
 
-    public function saveSistemas($datos){
-        echo "<pre>";
-        var_dump($datos);
-        exit();
+    public function saveSistemas($nombre,$total){
+        $query = "INSERT INTO co_sistemas (url, total_pdc) VALUES ('$nombre',$total);";
+        $res = mysqli_query($this->con, $query);
+        return true;
+
     }
 }
 ?>
