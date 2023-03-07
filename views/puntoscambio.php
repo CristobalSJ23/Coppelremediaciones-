@@ -68,7 +68,14 @@
             </table>
         </div>
     </div>
+    <div id="creartabla"></div>
+    <div id="divBotonZip" style="display: none;">
+            <button type="button" class="guardarSistemas btn btn-primary btn-lg">Guardar puntos de cambio</button>
+    </div>
 </div>
+
+
+
 <div class="modal fade  crearModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -113,4 +120,3 @@
         </div>
     </div>
 </div>
-<div id="creartabla"></div>

@@ -83,5 +83,11 @@ class puntoscambioModel{
         return $palabras; 
 
     }
+
+    public function saveSistemas($datos){
+        echo "<pre>";
+        var_dump($datos);
+        exit();
+    }
 }
 ?>

@@ -178,6 +178,7 @@ $(document).ready(function() {
             processData: false,
         })
         .done(function(res){
+            archivos = [];
             var tabla='';
             tabla += '<table class="table" border="1">';
             tabla += '<thead> <tr>';
@@ -188,7 +189,7 @@ $(document).ready(function() {
                 tabla += "<th>" + data + "</th>";
             });
 
-            tabla += "<th> Total </th>";
+            tabla += "<th> Total Puntos de Cambio </th>";
             tabla += '</tr> </thead>';
             tabla += '<tbody> ';
             var result = res.result;
@@ -203,19 +204,32 @@ $(document).ready(function() {
                 });
                 tabla += '<td>' + contadorPC + '</td>';
                 tabla += '</tr>';
-                contadorPC = 0
+                elemento = [];
+                elemento.push(dataNombre,contadorPC);
+                archivos.push(elemento);
+                contadorPC = 0;
             });
             tabla += '</tbody>';
-
             tabla += '</table>';
             $('#creartabla').html(tabla);
-           
+            $('#divBotonZip').removeAttr('style');
         });
     });
     
+    $('.guardarSistemas').click(function(){
+        // Recorrer los elementos <td> de la tabla para obtener el elemento HTML
+        obj.url = '../puntoscambio/saveSistemas';
+        obj.data = archivos;
+        obj.type = 'POST';
+        obj.accion = 'saveSistemas';
+
+        peticionAjax(obj);
+    });
 });
 
 function peticionAjax(datos) {
+    console.log("ajax");
+    console.log(datos);
     $.ajax({
         url: datos.url,
         data: datos.data,
@@ -228,22 +242,17 @@ function peticionAjax(datos) {
             switch (datos.accion) {
                 case "savePalabra":
                     $('.mensaje_sistema').html(res);
-                    $("#mensajeModal").modal("show");
-                    
-                    
-                                      
+                    $("#mensajeModal").modal("show");               
                     break;    
 
                 case "saveLanguage":
                     $('.mensaje_sistema').html(res);
                     $("#mensajeModal").modal("show");
-                    
-                break;
+                    break;
 
                 case "update":
                     $('.mensaje_sistema').html(res.res);
                     $("#mensajeModal").modal("show");
-
                     break;
 
                 case "delete":
@@ -265,7 +274,10 @@ function peticionAjax(datos) {
                     $('.nombreLeng'+datos.idtd).html(crearSelect);
                     break;
 
-
+                case "saveSistemas":
+                    $('.mensaje_sistema').html(res);
+                    $("#mensajeModal").modal("show");
+                    break;
             }
         },
         error: function(xhr, estatus) {
