@@ -2,6 +2,7 @@ $(document).ready(function() {
     var obj = {};
     $('.editar').click(function(){
         var id = $(this).data('id');
+        var catalogo = $(this).data('catalogo');
         var estatus = $('.estatus' + id).html();
         var nombre = $('.nombre' + id).html();
         var descripcion = $('.descripcion' + id).html();
@@ -13,6 +14,9 @@ $(document).ready(function() {
         var usuario = $('.usuario' + id).html();
         var jefeArea = $('.jefeArea' + id).html();
         var fechapdp = $('.fechapdp' + id).html();
+
+        $(".catEstatus option[value='"+ catalogo +"']").attr("selected", true);
+
         $(".editar_pdp_modal").modal("show");
         $('#estatus_sis').attr('value',estatus.trim());
         $('#nombre_aps').attr('value',nombre.trim());

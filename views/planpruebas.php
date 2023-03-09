@@ -59,7 +59,7 @@
           <?php echo $res['fecha_pdp'][$i] ?>
         </td>
         <td>
-          <i class="editar bi bi-pencil-square btn  " data-id="<?= $id ?>"></i>
+          <i class="editar bi bi-pencil-square btn  " data-id="<?= $id ?>" data-catalogo="<?= $res['idestatus'][$i] ?>"></i>
           <i class="eliminar bi bi-trash btn eliminar<?= $id ?>" data-id="<?= $id ?>"></i>
 
           <i class="save bi bi-check2-circle btn save<?= $id ?>" data-id="<?= $id ?>" style="display:none"></i>
@@ -87,9 +87,10 @@
               <div class="form-group">
                 <label>Estatus:</label>
                   <!-- <input type="text" class="form-control" name="estatus_sis" id="estatus_sis" maxlength="50"> -->
-                  <select>
-                    <?php foreach($catalogosEstatus['id'] as $i => $id) { ?>
-                      <option value="<?= $id ?>"><?= $catalogosEstatus['estatus'][$i] ?></option>
+                  <select class="catEstatus">
+                    <?php 
+                      foreach($catalogosEstatus['id'] as $i => $id) { ?>
+                        <option value="<?= $id ?>"><?= $catalogosEstatus['estatus'][$i] ?></option>
                     <?php } ?>
                   </select>
               </div>

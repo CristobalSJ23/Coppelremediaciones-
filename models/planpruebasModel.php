@@ -6,7 +6,7 @@ class planpruebasModel{
         $this->con = $con->connection();
     }
        public function getPlan(){
-        $query = "SELECT DISTINCT p.id_pdp AS idpdp, ce.estatus AS est ,ca.nombre AS nm,'prueba' AS descripcion, cs.url AS urlSis, 
+        $query = "SELECT DISTINCT p.id_pdp AS idpdp,ce.id_estatus AS idest, ce.estatus AS est ,ca.nombre AS nm,'prueba' AS descripcion, cs.url AS urlSis, 
         'arquitecto' AS arquitecto,'programador' AS programador, 'tester' AS tester,
         'gerente' AS gerente,'usuario' AS usuario,'Jefe de area' AS jefeArea,
         p.fecha_pdp AS fepdp
@@ -20,6 +20,7 @@ class planpruebasModel{
         if(mysqli_num_rows($res)>0){
             while($row=mysqli_fetch_assoc($res)){
                 $data['idpdp'][$i] = $row['idpdp'];
+                $data['idestatus'][$i] = $row['idest'];
                 $data['estatus'][$i] = $row['est'];
                 $data['nombre'][$i] = $row['nm'];
                 $data['descripcion'][$i] = $row['descripcion'];
