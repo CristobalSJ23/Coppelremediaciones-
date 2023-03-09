@@ -6,10 +6,13 @@ class apsController extends coreController{
         $this->js='../assets/js/aps.js';
         require_once('models/apsModel.php');
         $this->aps = new apsModel();
+        require_once("models/userModel.php");
+        $this->users = new userModel();
     }
 
     public function aps(){
         $res = $this->aps->listAps();
+        $arquitectos = $this->users->getArquitectos();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/aps.php");
@@ -33,5 +36,6 @@ class apsController extends coreController{
         $data["res"] = "Tu registro se ha agregado correctamente";
         echo json_encode($data);
     }
+
 }
 ?>

@@ -43,6 +43,10 @@
         echo json_encode($res);
     }
 
+    public function listarArquitectos() {
+        $res = $this->users->getArquitectos();
+        echo json_encode($res);
+    }
 
  }
 ?>

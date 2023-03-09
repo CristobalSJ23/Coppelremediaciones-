@@ -6,6 +6,7 @@ $(document).ready(function(){
         var htmlNombre = $(".nombreAps" + id).html();
         var htmlEstatus = $(".estatusAps" + id).html();
         var color = $(".estatusAps" + id).data('color');
+        var idArquitecto = $(this).data('arquitecto');
 
         $('.nombreAps'+id).html('<input name="editarNombre' + id + '" class="editarNombre' + id + '" value ="' + htmlNombre + '"/>');
         $('.estatusAps'+id).html('<input name="editarEstatus' + id + '" class= "editarEstatus' + id + '" value = "' + htmlEstatus + '"/>');
@@ -17,19 +18,33 @@ $(document).ready(function(){
             inactivo = 'selected';
         }
 
+
         $('.estatusAps'+id).html('<select name="guardarEstatus' + id + '" class="guardarEstatus' + id + '"> <option value="1" ' + activo + '>ACTIVO</option><option value="0" ' + inactivo + '>INACTIVO</option></select>');
         $('.editar_acciones_'+id).hide();
         $('.editar_acciones_cancelar_'+id).removeAttr('style');
+
+        obj.idArq = idArquitecto;
+        obj.idtd = id;
+        obj.url = '../users/listarArquitectos';
+        obj.data = {
+        };
+
+        obj.type = 'POST';
+        obj.accion = 'crearSelect';
+
+        peticionAjax(obj);
     });
 
     $('.cancelar').click(function(){
         var id = $(this).data('id');
         var htmlNombre = $(this).data('nombre');
         //var htmlEstatus = $(".estatusAps"+id).html();
+        var arquitecto = $(this).data('arquitecto');
         var htmlEstatus = $(this).data('estatus');
         var color = $(this).data('color');
 
         $('.nombreAps'+id).html(htmlNombre);
+        $('.nombreArquitecto'+id).html(arquitecto);
         $('.estatusAps'+id).html(htmlEstatus);
         $('.estatusAps'+id).addClass(color);
         $('.editar_acciones_'+id).show();
@@ -41,12 +56,16 @@ $(document).ready(function(){
         var id = $(this).data('id');
         var nombre = $('.editarNombre' + id).val();
         var estatus = $('.guardarEstatus'+ id).val();
+        var arquitectoID = $('.arquitectoSelect' + id).val();
+        var arquit = $('.recuperarNombre' +arquitectoID).data("nombrearquitecto");
+
+        $('.nombreArquitecto' + id).html(arquit);
 
         //alert(id, estatus);
 
         if(nombre != '') {
             obj.url = '../aps/edit';
-            obj.data = {id:id, nombre: nombre, estatus: estatus};
+            obj.data = {id:id, nombre: nombre, estatus: estatus, arquitecto:arquitectoID};
             obj.type = 'POST';
             obj.accion = 'update';
             $(".nombreAps"+id).html(nombre);
@@ -133,6 +152,19 @@ function peticionAjax(datos) {
                     $('.estatusAps' + datos.id).html("INACTIVO");
                    
                 break;
+                case "crearSelect":
+                    var crearSelect = '';
+                    crearSelect += '<select class="form-select arquitectoSelect'+datos.idtd+'" aria-label="Default select example">';
+                    $.each(res.iduser, function(key,data){
+                        if(Number(data) == Number(datos.idArq)){
+                            crearSelect += '<option value="'+data+'" class="recuperarNombre'+data+'" data-nombrearquitecto="'+res.nombre[key]+'" selected>'+res.nombre[key]+'</option>'; 
+                        }else{
+                            crearSelect += '<option value="'+data+'" class="recuperarNombre'+data+'" data-nombrearquitecto="'+res.nombre[key]+'" >'+res.nombre[key]+'</option>';
+                        }
+                    });
+                    crearSelect += '</select>';
+                    $('.nombreArquitecto'+datos.idtd).html(crearSelect);
+                    break;
             }
 
         },

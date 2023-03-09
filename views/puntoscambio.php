@@ -108,7 +108,7 @@
 
                             </div>
                             <!-- <a class="btn btn-primary" href="login">Atras</a> -->
-                            <button type="submit" class="btn w-25 btn-primary1 guardarZip">Enviar</button>
+                            <button type="submit" class="btn w-25 btn-primary guardarZip">Enviar</button>
                             <button type="button" class="btn btn-secondary cerrarModal"
                                 data-dismiss="modal">Cerrar</button>
 
