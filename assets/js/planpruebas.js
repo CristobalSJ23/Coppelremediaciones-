@@ -65,6 +65,10 @@ $(document).ready(function() {
         peticionAjax(obj);
     });
 
+    $('.cerrarModal').click(function(){
+        $('.editar_pdp_modal').modal("hide");
+    });
+
 });
 
 function peticionAjax(datos) {

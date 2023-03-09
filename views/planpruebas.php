@@ -56,7 +56,7 @@
           <?php echo $res['jefeArea'][$i] ?>
         </td>
         <td class="fechapdp<?=$id?>">
-          <?php echo $res['fecha_pdp'][$i] ?>
+          <?php echo substr($res['fecha_pdp'][$i], 0, -7); ?>
         </td>
         <td>
           <i class="editar bi bi-pencil-square btn  " data-id="<?= $id ?>" data-catalogo="<?= $res['idestatus'][$i] ?>"></i>
@@ -87,7 +87,7 @@
               <div class="form-group">
                 <label>Estatus:</label>
                   <!-- <input type="text" class="form-control" name="estatus_sis" id="estatus_sis" maxlength="50"> -->
-                  <select class="catEstatus">
+                  <select class="catEstatus form-select">
                     <?php 
                       foreach($catalogosEstatus['id'] as $i => $id) { ?>
                         <option value="<?= $id ?>"><?= $catalogosEstatus['estatus'][$i] ?></option>
@@ -96,15 +96,15 @@
               </div>
               <div class="form-group">
                 <label>APS:</label>
-                <input type="text" class="form-control" name="nombre_aps" id="nombre_aps">
+                <input type="text" class="form-control" name="nombre_aps" id="nombre_aps" disabled>
               </div>
               <div class="form-group">
                 <label>URL del proyecto trabajado:</label>
-                <input type="text" class="form-control" name="url_sis" id="url_sis" maxlength="256">
+                <input type="text" class="form-control" name="url_sis" id="url_sis" maxlength="256" disabled>
               </div>
               <div class="form-group">
                 <label>Descripción (Antes niveles):</label>
-                <input type="text" class="form-control" name="descripcion_pdc" id="descripcion_pdc" maxlength="256">
+                <input type="text" class="form-control" name="descripcion_pdc" id="descripcion_pdc" maxlength="256" disabled>
               </div>
             </div>
             <div class="col-lg-4 col-xs-12">
