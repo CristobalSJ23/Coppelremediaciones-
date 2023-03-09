@@ -6,10 +6,14 @@ class planpruebasController extends coreController{
         $this->js='../assets/js/planpruebas.js';
         require_once('models/planpruebasModel.php');
         $this->plan = new planpruebasModel();
+
+        require_once("models/catalogosModel.php");
+        $this->catalogoEstatus = new catalogosModel();
     }
 
     public function read(){
         $res = $this->plan->getPlan();
+        $catalogosEstatus = $this->catalogoEstatus->getCatalogoEstatus();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/planpruebas.php");
@@ -17,12 +21,18 @@ class planpruebasController extends coreController{
 
     }
 
+    public function getEstatusNotas(){
+        $res = $this->plan->getEstatusNotas($_POST['idpdp']);
+        echo json_encode($res);
+    }
+
     public function create(){
         
     }
 
     public function update(){
-        
+        $res = $this->plan->update($_POST);
+        echo json_encode("El plan de pruebas se ha actualizado");
     }
 
     public function delete(){

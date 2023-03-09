@@ -37,12 +37,37 @@ class planpruebasModel{
         }
         return $data;
        }
+    
+    public function getEstatusNotas($id){
+        $query = "SELECT nueva_version_pdp, version_anterior_pdp, resultado_pdp, notas_asignacion_pdp, 
+        bitacora_pdp, version_historial_pdp, fecha_pruebas_pdp, fecha_aprobacion_pdp
+        FROM pdp WHERE id_pdp = $id";
+        $res = mysqli_query($this->con,$query);
+        $row = mysqli_fetch_assoc($res);
+        $data['nueva_version'] = $row['nueva_version_pdp'];
+        $data['version_anterior'] = $row['version_anterior_pdp'];
+        $data['resultado'] = $row['resultado_pdp'];
+        $data['notas'] = $row['notas_asignacion_pdp'];
+        $data['bitacora'] = $row['bitacora_pdp'];
+        $data['version'] = $row['version_historial_pdp'];
+        $data['fecha_realizacion'] = $row['fecha_pruebas_pdp'];
+        $data['fecha_aprobacion'] = $row['fecha_aprobacion_pdp'];
+        return $data;
+    }
+
     public function create(){
         
     }
 
-    public function update(){
-        
+    public function update($datos){
+        $query = "UPDATE pdp SET
+        fecha_pdp='".$datos['fecha_pdp']."', fecha_pruebas_pdp='".$datos['fecha_pruebas_pdp']."',
+        fecha_aprobacion_pdp='".$datos['fecha_aprobacion_pdp']."', nueva_version_pdp='".$datos['nueva_version_pdp']."',
+        version_anterior_pdp='".$datos['version_anterior_pdp']."', resultado_pdp='".$datos['resutado_pdp']."',
+        notas_asignacion_pdp='".$datos['notas_asignacion_pdp']."', bitacora_pdp='".$datos['bitacora_pdp']."',
+        version_historial_pdp='".((int)$datos['version_historial_pdp']+1)."' WHERE id_pdp='".$datos['id']."'";
+        mysqli_query($this->con,$query);
+        return true;
     }
 
     public function delete(){

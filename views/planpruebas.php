@@ -86,7 +86,12 @@
               <h4 class="text-center">Informacion del sistema</h4>
               <div class="form-group">
                 <label>Estatus:</label>
-                  <input type="text" class="form-control" name="estatus_sis" id="estatus_sis" maxlength="50">
+                  <!-- <input type="text" class="form-control" name="estatus_sis" id="estatus_sis" maxlength="50"> -->
+                  <select>
+                    <?php foreach($catalogosEstatus['id'] as $i => $id) { ?>
+                      <option value="<?= $id ?>"><?= $catalogosEstatus['estatus'][$i] ?></option>
+                    <?php } ?>
+                  </select>
               </div>
               <div class="form-group">
                 <label>APS:</label>
@@ -109,8 +114,7 @@
               </div>
               <div class="form-group">
                 <label>Fecha y hora en que se realizaron las pruebas:</label>
-                  <input type="datetime-local" class="form-control" name="fecha_pruebas_pdp" id="fecha_pruebas_pdp"
-                    maxlength="256" value="<?= $user['fecha_pruebas_pdp']; ?>">
+                  <input type="datetime-local" class="form-control" name="fecha_pruebas_pdp" id="fecha_pruebas_pdp">
               </div>
               <div class="form-group">
                 <label>Fecha y hora de aprobación:</label>
@@ -127,6 +131,7 @@
                 <label>Versión anterior:</label>
                   <input type="text" class="form-control" name="version_anterior_pdp" id="version_anterior_pdp"
                     maxlength="256">
+              </div>
               <div class="form-group">
                 <label>Resultado de pruebas:</label>
                 <textarea class="form-control" id="resutado_pdp" name="resutado_pdp" rows="3"
@@ -164,7 +169,6 @@
             </div>
             <div class="col-lg-4 col-xs-12">
               <h4 class="text-center">Notas</h4>
-
               <div class="form-group">
                 <label>Notas referentes a la asignación:</label>
                   <input type="text" class="form-control" name="notas_asignacion_pdp" id="notas_asignacion_pdp"
@@ -186,7 +190,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary save-pdp">Guardar</button>
+        <button type="submit" class="btn btn-primary save_pdp">Guardar</button>
         <button type="button" class="btn btn-secondary cerrarModal" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

@@ -171,42 +171,40 @@ $(document).ready(function() {
         $('.crear_usuario_modal').modal("hide");
     });
 
-    function peticionAjax(datos) {
-        $.ajax({
-            url: datos.url,
-            data: datos.data,
-            type: datos.type,
-            dataType: 'json',
-            success: function(res) {
-                switch (datos.accion) {
-                    case "save":
-                        $(".frmGuardar")[0].reset();
-                        $('.crear_usuario_modal').modal("hide");
-                        $('.mensaje_sistema').html(res.res);
-                        $('.mensaje').addClass("bg-success");
-                        $("#mensajeModal").modal("show");                      
-                        break;
-
-                    case "update":
-                        $('.mensaje_sistema').html(res.res);
-                        $("#mensajeModal").modal("show");
-                        break;
-
-                    case "delete":
-                        $('.editar_estatus_' + datos.id).removeClass("bg-success");
-                        $('.editar_estatus_' + datos.id).addClass("bg-warning");
-                        $('.editar_estatus_' + datos.id).html("INACTIVO");
-                        break;
-                }
-            },
-            error: function(xhr, estatus) {
-
-            }
-        });
-
-
-    }
-
-
-
 });
+
+function peticionAjax(datos) {
+    $.ajax({
+        url: datos.url,
+        data: datos.data,
+        type: datos.type,
+        dataType: 'json',
+        success: function(res) {
+            switch (datos.accion) {
+                case "save":
+                    $(".frmGuardar")[0].reset();
+                    $('.crear_usuario_modal').modal("hide");
+                    $('.mensaje_sistema').html(res.res);
+                    $('.mensaje').addClass("bg-success");
+                    $("#mensajeModal").modal("show");                      
+                    break;
+
+                case "update":
+                    $('.mensaje_sistema').html(res.res);
+                    $("#mensajeModal").modal("show");
+                    break;
+
+                case "delete":
+                    $('.editar_estatus_' + datos.id).removeClass("bg-success");
+                    $('.editar_estatus_' + datos.id).addClass("bg-warning");
+                    $('.editar_estatus_' + datos.id).html("INACTIVO");
+                    break;
+            }
+        },
+        error: function(xhr, estatus) {
+
+        }
+    });
+
+
+}
