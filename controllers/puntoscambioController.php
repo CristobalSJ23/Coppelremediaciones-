@@ -8,6 +8,8 @@ class puntoscambioController extends coreController
         $this->js = '../assets/js/puntoscambio.js';
         require_once('models/puntoscambioModel.php');
         $this->puntos = new puntoscambioModel();
+        require_once('models/userModel.php');
+        $this->usuarios = new userModel();
     }
 
     public function puntos()
@@ -53,6 +55,7 @@ class puntoscambioController extends coreController
 
     public function leerZip()
     {
+        
         $path_completo = $_FILES['envioarchivos']['name'];
         $path_completo = str_replace('.zip', '', $path_completo);
 
@@ -75,6 +78,8 @@ class puntoscambioController extends coreController
             $crearTabla['thead'] = array();
             $crearTabla['NombreArchivo'] = array();
             $crearTabla['result'] = array();
+            $crearTabla['Programadores'] = array();
+            $crearTabla['Tester'] = array();
             //$crearTabla['contadorPC'] = array();
 
             if (is_dir($nombreCarpeta)) {
@@ -100,6 +105,11 @@ class puntoscambioController extends coreController
                     closedir($dh);
                 }
             }
+            $Programadores = $this->usuarios->getProgramadores();
+            array_push($crearTabla['Programadores'], $Programadores);
+            $Tester = $this->usuarios->getTester();
+            array_push($crearTabla['Tester'], $Tester);
+
         }
         echo json_encode($crearTabla);
     }

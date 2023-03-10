@@ -179,10 +179,24 @@ $(document).ready(function() {
         })
         .done(function(res){
             archivos = [];
+            var selectProg = '<select class = "form-select">';
+            $.each(res.Programadores[0].nombre, function(key,data){
+                selectProg += "<option value = '"+ res.Programadores[0].idprog[key] +"'>"+data+"</option>";
+            
+            });
+            selectProg += "</select>";
+            var selectTest = '<select class = "form-select">';
+            $.each(res.Tester[0].nombre, function(key,data){
+                selectTest += "<option value = '"+ res.Tester[0].idtest[key] +"'>"+data+"</option>";
+            });
+            selectTest += "</select>";
+
             var tabla='';
             tabla += '<table class="table" border="1">';
             tabla += '<thead> <tr>';
             tabla += '<th>Nombre del Archivo</th>';
+            tabla += '<th>Programador</th>';
+            tabla += '<th>Tester</th>';
             //console.log(res);
             //console.log(res.result[0].if);
             $.each(res.thead, function(key,data){
@@ -199,6 +213,9 @@ $(document).ready(function() {
             $.each(res.NombreArchivo, function(keyNombre,dataNombre){
                 tabla += '<tr>';
                 tabla += '<td class = "urlarchivo">' + dataNombre + '</td>';
+                tabla += '<td class = "urlarchivo">' + selectProg +'</td>';
+                tabla += '<td class = "urlarchivo">' +  selectTest +'</td>';
+            
                 $.each(res.thead, function(key,data){
                     tabla += '<td>' + result[keyNombre][data] + '</td>';
                     contadorPC +=  result[keyNombre][data];

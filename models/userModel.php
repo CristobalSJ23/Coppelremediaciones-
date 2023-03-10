@@ -73,10 +73,40 @@ class userModel{
             $data['nombre'][$i] = $row['nombreCompleto'];
             $i++;
         }
+        
 
         return $data;
     }
+public function getProgramadores(){
 
+    $query = "SELECT u.id_usuario AS id_usuario, CONCAT(u.nombre,' ', u.apt_pat, ' ', u.apt_mat) AS nombreCompleto FROM co_usuarios u 
+            INNER JOIN co_r_usu ru ON u.id_usuario = ru.id_usuario WHERE ru.id_rol = 2 AND estatus = 1";
 
+            $res = mysqli_query($this->con, $query);
+            $i = 0;
+            while($row = mysqli_fetch_assoc($res)){
+                $data['idprog'][$i] = $row['id_usuario'];
+                $data['nombre'][$i] = $row['nombreCompleto'];
+                $i++;
+            }
+
+            return $data;
+
+}
+
+public function getTester(){
+    $query = "SELECT u.id_usuario AS id_usuario, CONCAT(u.nombre,' ', u.apt_pat, ' ', u.apt_mat) AS nombreCompleto FROM co_usuarios u 
+    INNER JOIN co_r_usu ru ON u.id_usuario = ru.id_usuario WHERE ru.id_rol = 3 AND estatus = 1";
+
+    $res = mysqli_query($this->con, $query);
+    $i = 0;
+    while($row = mysqli_fetch_assoc($res)){
+        $data['idtest'][$i] = $row['id_usuario'];
+        $data['nombre'][$i] = $row['nombreCompleto'];
+        $i++;
+    }
+    return $data;
+
+}
 }
 ?>
