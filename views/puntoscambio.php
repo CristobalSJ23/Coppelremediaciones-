@@ -70,7 +70,7 @@
     </div>
     <div id="creartabla"></div>
     <div id="divBotonZip" style="display: none;">
-            <select class = "form-select">
+            <select class = "form-select selectAPS">
               <option selected disabled value = ''>Selecciona un APS</option>
                 <?php
                 foreach( $resAPS['id'] as $i=>$varId){

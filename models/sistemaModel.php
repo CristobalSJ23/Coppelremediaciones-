@@ -18,8 +18,11 @@ class sistemaModel{
                 $data['checkmarx'][$i] = $row['checkmarx'];
                 $data['estatus'][$i] = $row['estatus'];
                 $data['id_catE'][$i] = $row['id_cat_estatus'];
-                $data['aprovado'][$i] = $row['vobo'];
+                $data['aprobado'][$i] = $row['vobo'];
                 $data['fuente'][$i] = $row['fuente'];
+                $data['altas'][$i] = $row['alta_vul'];
+                $data['medias'][$i] = $row['media_vul'];
+                $data['bajas'][$i] = $row['baja_vul'];
                 $data['observacion'][$i] = $row['observacion'];
                 $i++;
             }
@@ -27,10 +30,23 @@ class sistemaModel{
         return $data;
     }
 
-    public function updateSistema($idSistema,$idEstatus) {
-        $query = "UPDATE co_sistemas SET id_cat_estatus = $idEstatus WHERE id_sistema = $idSistema";
+    public function updateSistema($datos) {
+        $query = "UPDATE co_sistemas SET 
+        id_cat_estatus='".$datos['idEstatus']."', 
+        checkmarx='".$datos['checkmarx']."',
+        vobo='".$datos['aprobado']."',
+        fuente='".$datos['fuente']."',
+        alta_vul='".$datos['altas']."',
+        media_vul='".$datos['medias']."',
+        baja_vul='".$datos['bajas']."',
+        observacion='".$datos['observacion']."'
+        WHERE id_sistema ='".$datos['idSistema']."'";
         $res = mysqli_query($this->con, $query);
         return true;
+    }
+
+    public function crearSelect(){
+
     }
 }
 ?>

@@ -119,9 +119,9 @@ class puntoscambioController extends coreController
 
     public function saveSistemas(){
         foreach($_POST['nombresurl'] as $i=>$nombre){
-            $res = $this->puntos->saveSistemas($nombre,$_POST['totalpc'][$i]);
+            $id = $this->puntos->saveSistemas($nombre,$_POST['totalpc'][$i],$_POST['aps']);
+            $rel = $this->puntos->saveRelation($id,$_POST['programadores'][$i],$_POST['testers'][$i]);
         }
-       
         echo json_encode("Se han registrado los sistemas correctamente");
     }
 }

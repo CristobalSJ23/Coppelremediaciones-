@@ -84,11 +84,22 @@ class puntoscambioModel{
 
     }
 
-    public function saveSistemas($nombre,$total){
-        $query = "INSERT INTO co_sistemas (url, total_pdc) VALUES ('$nombre',$total);";
+    public function saveSistemas($nombre,$total,$aps){
+        $query = "INSERT INTO co_sistemas 
+        (url,total_pdc,id_aps,id_cat_estatus,resuelto_pdc,aprobados_pdc,alta_vul,media_vul,baja_vul)
+        VALUES 
+        ('$nombre',$total,$aps,5,0,0,0,0,0);";
         $res = mysqli_query($this->con, $query);
-        return true;
+        $id = mysqli_insert_id($this->con);
+        return $id;
 
+    }
+
+    public function saveRelation($id,$programadores,$testers){
+        $query = "INSERT INTO co_r_sist_usu (id_sistema, id_prog_asignado, id_tester_asignado) 
+        VALUES ('$id', '$programadores', '$testers')";
+        $res = mysqli_query($this->con,$query);
+        return $res;
     }
 }
 ?>

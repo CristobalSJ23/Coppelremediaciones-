@@ -22,9 +22,14 @@ class sistemaController extends coreController{
     }
 
     public function updateSistema() {
-        $res = $this->sistema->updateSistema( $_POST['idSistema'],$_POST['idEstatus']);
+        $res = $this->sistema->updateSistema($_POST);
         $data['res'] = 'Tu registro se actualizo correctamente';
         echo json_encode($data);
+    }
+
+    public function crearSelect(){
+        $catalogosEstatus = $this->catalogoEstatus->getCatalogoEstatus();
+        echo json_encode($catalogosEstatus);
     }
 }
 ?>

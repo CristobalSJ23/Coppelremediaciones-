@@ -24,9 +24,7 @@ $(document).ready(function() {
         obj.idLeng = idLeng;
         obj.idtd = id;
         obj.url = '../puntoscambio/crearSelect';
-        obj.data = {
-        };
-
+        obj.data = {};
         obj.type = 'POST';
         obj.accion = 'crearSelect';
 
@@ -179,14 +177,14 @@ $(document).ready(function() {
         })
         .done(function(res){
             archivos = [];
-            var selectProg = '<select class = "form-select">';
+            var selectProg = '<select class = "form-select programadores">';
             selectProg += "<option selected disabled value = ''>Selecciona un Programador</option>";
             $.each(res.Programadores[0].nombre, function(key,data){
                 selectProg += "<option value = '"+ res.Programadores[0].idprog[key] +"'>"+data+"</option>";
             
             });
             selectProg += "</select>";
-            var selectTest = '<select class = "form-select">';
+            var selectTest = '<select class = "form-select testers">';
             selectTest += "<option selected disabled value = ''>Selecciona un Tester</option>";
             $.each(res.Tester[0].nombre, function(key,data){
                 selectTest += "<option value = '"+ res.Tester[0].idtest[key] +"'>"+data+"</option>";
@@ -196,6 +194,7 @@ $(document).ready(function() {
             var tabla='';
             tabla += '<table class="table" border="1">';
             tabla += '<thead> <tr>';
+            tabla += '<th>#</th>';
             tabla += '<th>Nombre del Archivo</th>';
             tabla += '<th>Programador</th>';
             tabla += '<th>Tester</th>';
@@ -214,9 +213,10 @@ $(document).ready(function() {
             
             $.each(res.NombreArchivo, function(keyNombre,dataNombre){
                 tabla += '<tr>';
+                tabla += '<th scope="row">' + (keyNombre+1) + '</th>';
                 tabla += '<td class = "urlarchivo">' + dataNombre + '</td>';
-                tabla += '<td class = "urlarchivo">' + selectProg +'</td>';
-                tabla += '<td class = "urlarchivo">' +  selectTest +'</td>';
+                tabla += '<td class = "programador">' + selectProg +'</td>';
+                tabla += '<td class = "tester">' +  selectTest +'</td>';
             
                 $.each(res.thead, function(key,data){
                     tabla += '<td>' + result[keyNombre][data] + '</td>';
@@ -243,25 +243,52 @@ $(document).ready(function() {
         var nombresurl = [];
         var totalpc = [];
         var info = {};
+        var programadores = [];
+        var testers = [];
+        var aps;
         $('.urlarchivo').each(function(index){
             nombresurl[index]=$(this).text();
-            // console.log(index + " : " + $(this).text());
         });
         $('.totalpc').each(function(index){
             totalpc[index]=$(this).text();
-            // console.log(index + " : " + $(this).text());
         });
+        $('.programadores').each(function(index){
+            if($(this).val() === null) {
+                alert('Debe seleccionar un Programador en el registro ' + (index + 1));
+                $(this).addClass("bg-danger");
+                exit();
+            } else {
+                programadores[index] = $(this).val();
+            }
+        });
+        $('.testers').each(function(index){
+            if($(this).val() === null) {
+                alert('Debe seleccionar un Tester en el registro ' + (index + 1));
+                $(this).addClass("bg-danger");
+                exit();
+            } else {
+                testers[index] = $(this).val();
+            }
+        });
+        if($('.selectAPS').val() === null){
+            alert('Debe seleccionar un APS para los sistemas');
+            $('.selectAPS').addClass("bg-danger");
+            exit();
+        } else {
+            aps = $('.selectAPS').val();
+        }
+
         info.nombresurl=nombresurl;
         info.totalpc=totalpc;
-
-        console.log(totalpc);
-        console.log(nombresurl);
+        info.programadores=programadores;
+        info.testers=testers;
+        info.aps=aps;
+        console.log(programadores);
+        console.log(testers);
+        console.log(info);
         var id = $(this).data('id');
         var urlarchivo = $('.urlarchivo'+id).html();
         var totalpc = $('.totalpc'+id).html();
-        // console.log(urlarchivo);
-        // console.log(totalpc);
-        // Recorrer los elementos <td> de la tabla para obtener el elemento HTML
         obj.url = '../puntoscambio/saveSistemas';
         obj.data = info;
         obj.type = 'POST';
