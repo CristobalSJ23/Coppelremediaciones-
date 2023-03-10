@@ -180,12 +180,14 @@ $(document).ready(function() {
         .done(function(res){
             archivos = [];
             var selectProg = '<select class = "form-select">';
+            selectProg += "<option selected disabled value = ''>Selecciona un Programador</option>";
             $.each(res.Programadores[0].nombre, function(key,data){
                 selectProg += "<option value = '"+ res.Programadores[0].idprog[key] +"'>"+data+"</option>";
             
             });
             selectProg += "</select>";
             var selectTest = '<select class = "form-select">';
+            selectTest += "<option selected disabled value = ''>Selecciona un Tester</option>";
             $.each(res.Tester[0].nombre, function(key,data){
                 selectTest += "<option value = '"+ res.Tester[0].idtest[key] +"'>"+data+"</option>";
             });

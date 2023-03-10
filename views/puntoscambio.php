@@ -70,6 +70,15 @@
     </div>
     <div id="creartabla"></div>
     <div id="divBotonZip" style="display: none;">
+            <select class = "form-select">
+              <option selected disabled value = ''>Selecciona un APS</option>
+                <?php
+                foreach( $resAPS['id'] as $i=>$varId){
+                ?>
+                
+                <option value = '<?= $varId ?>'><?php echo $resAPS['nombre'][$i]?></option>
+                <?php }?>
+            </select> 
             <button type="button" class="guardarSistemas btn btn-primary btn-lg">Guardar puntos de cambio</button>
     </div>
 </div>

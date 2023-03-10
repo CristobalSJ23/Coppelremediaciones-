@@ -10,12 +10,15 @@ class puntoscambioController extends coreController
         $this->puntos = new puntoscambioModel();
         require_once('models/userModel.php');
         $this->usuarios = new userModel();
+        require_once('models/apsModel.php');
+        $this->aps = new apsModel();
     }
 
     public function puntos()
     {
         $resLenguajes = $this->puntos->readLenguajes();
         $resPalabras = $this->puntos->readPalabras();
+        $resAPS = $this->aps->listAps();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/puntoscambio.php");
