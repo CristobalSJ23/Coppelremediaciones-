@@ -20,6 +20,9 @@ class sistemaModel{
                 $data['id_catE'][$i] = $row['id_cat_estatus'];
                 $data['aprobado'][$i] = $row['vobo'];
                 $data['fuente'][$i] = $row['fuente'];
+                $data['total'][$i] = $row['total_pdc'];
+                $data['resuelto'][$i] = $row['resuelto_pdc'];
+                $data['aprobados'][$i] = $row['aprobados_pdc'];
                 $data['altas'][$i] = $row['alta_vul'];
                 $data['medias'][$i] = $row['media_vul'];
                 $data['bajas'][$i] = $row['baja_vul'];
@@ -36,6 +39,8 @@ class sistemaModel{
         checkmarx='".$datos['checkmarx']."',
         vobo='".$datos['aprobado']."',
         fuente='".$datos['fuente']."',
+        resuelto_pdc='".$datos['resuelto']."',
+        aprobados_pdc='".$datos['aprobados']."',
         alta_vul='".$datos['altas']."',
         media_vul='".$datos['medias']."',
         baja_vul='".$datos['bajas']."',

@@ -6,6 +6,8 @@ $(document).ready(function() {
         var checkmarx = $('.checkmarx'+id).html();
         var aprobado = $('.aprobado'+id).html();
         var fuente = $('.fuente'+id).html();
+        var resuelto =$('.resuelto'+id).html();
+        var aprobados =$('.aprobados'+id).html();
         var altas = $('.altas'+id).html();
         var medias = $('.medias'+id).html();
         var bajas = $('.bajas'+id).html();
@@ -22,6 +24,8 @@ $(document).ready(function() {
         $('.checkmarx'+id).html('<input class="form-control checkmarxIN'+id+'" value='+checkmarx+'>');
         $('.aprobado'+id).html('<input class="form-control aprobadoIN'+id+'" value='+aprobado+'>');
         $('.fuente'+id).html('<input class="form-control fuenteIN'+id+'" value='+fuente+'>');
+        $('.resuelto'+id).html('<input class="form-control resueltoIN'+id+'" value='+resuelto+'>');
+        $('.aprobados'+id).html('<input class="form-control aprobadosIN'+id+'" value='+aprobados+'>');
         $('.altas'+id).html('<input class="form-control altasIN'+id+'" value='+altas+'>');
         $('.medias'+id).html('<input class="form-control mediasIN'+id+'" value='+medias+'>');
         $('.bajas'+id).html('<input class="form-control bajasIN'+id+'" value='+bajas+'>');
@@ -38,6 +42,8 @@ $(document).ready(function() {
         var checkmarx = $('.checkmarxIN'+id).val();
         var aprobado = $('.aprobadoIN'+id).val();
         var fuente = $('.fuenteIN'+id).val();
+        var resuelto = $('.resueltoIN'+id).val();
+        var aprobados = $('.aprobadosIN'+id).val();
         var altas = $('.altasIN'+id).val();
         var medias = $('.mediasIN'+id).val();
         var bajas = $('.bajasIN'+id).val();
@@ -50,6 +56,8 @@ $(document).ready(function() {
             checkmarx: checkmarx,
             aprobado: aprobado,
             fuente: fuente,
+            resuelto: resuelto,
+            aprobados: aprobados,
             altas: altas,
             medias: medias,
             bajas: bajas,
@@ -62,6 +70,8 @@ $(document).ready(function() {
         $('.checkmarx'+id).html(checkmarx);
         $('.aprobado'+id).html(aprobado);
         $('.fuente'+id).html(fuente);
+        $('.resuelto'+id).html(resuelto);
+        $('.aprobados'+id).html(aprobados);
         $('.altas'+id).html(altas);
         $('.medias'+id).html(medias);
         $('.bajas'+id).html(bajas);
@@ -76,6 +86,8 @@ $(document).ready(function() {
         var estatus = $(this).data('estatusnombre');
         var checkmarx = $(this).data('checkmarx');
         var aprobado = $(this).data('aprobado');
+        var resuelto = $(this).data('resuelto');
+        var aprobados = $(this).data('aprobados');
         var fuente = $(this).data('fuente');
         var altas = $(this).data('altas');
         var medias = $(this).data('medias');
@@ -86,6 +98,8 @@ $(document).ready(function() {
         $('.checkmarx'+id).html(checkmarx);
         $('.aprobado'+id).html(aprobado);
         $('.fuente'+id).html(fuente);
+        $('.resuelto'+id).html(resuelto);
+        $('.aprobados'+id).html(aprobados);
         $('.altas'+id).html(altas);
         $('.medias'+id).html(medias);
         $('.bajas'+id).html(bajas);

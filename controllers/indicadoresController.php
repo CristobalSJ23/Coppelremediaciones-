@@ -8,6 +8,7 @@ class indicadoresController extends coreController{
     }
 
     public function avanceDiario(){
+        $res = $this->indicadores->getAvanceDiario();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/avance.php");
@@ -20,6 +21,9 @@ class indicadoresController extends coreController{
         require_once("views/indicadores.php");
         require_once("views/templates/footer.php");
     }
+
+
 }
+
 
 ?>

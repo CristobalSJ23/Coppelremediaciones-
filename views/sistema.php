@@ -9,9 +9,12 @@
       <th scope="col">Checkmarx</th>
       <th scope="col">Aprobado</th>
       <th scope="col">Fuente</th>
-      <th scope="col">Vulnerabilidades altas</th>
-      <th scope="col">Vulnerabilidades medias</th>
-      <th scope="col">Vulnerabilidades bajas</th>
+      <th scope="col">Total PDC</th>
+      <th scope="col">Resueltos</th>
+      <th scope="col">Aprobados</th>
+      <th scope="col">Altas</th>
+      <th scope="col">Medias</th>
+      <th scope="col">Bajas</th>
       <th scope="col">Observaciones</th>
       <th scope="col">Acciones</th>
     </tr>
@@ -36,6 +39,9 @@
         <td class="checkmarx<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['checkmarx'][$i] ?> </td>
         <td class="aprobado<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['aprobado'][$i] ?> </td>
         <td class="fuente<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['fuente'][$i] ?> </td>
+        <td class="total<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['total'][$i] ?> </td>
+        <td class="resuelto<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['resuelto'][$i] ?> </td>
+        <td class="aprobados<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['aprobados'][$i] ?> </td>
         
         <td class="altas<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['altas'][$i] ?> </td>
         <td class="medias<?= $r ?>" data-id="<?= $r ?>"> <?php echo $res['medias'][$i] ?> </td>
@@ -52,6 +58,7 @@
             <div class="col"><i class="bi bi-x-circle cancelar btn" data-id="<?= $r ?>"
                 data-estatusnombre="<?= $res['estatus'][$i] ?>" data-checkmarx="<?= $res['checkmarx'][$i] ?>"
                 data-aprobado="<?= $res['aprobado'][$i] ?>" data-fuente="<?= $res['fuente'][$i] ?>"
+                data-resuelto="<?= $res['resuelto'][$i] ?>" data-aprobados="<?= $res['aprobados'][$i] ?>"
                 data-altas="<?= $res['altas'][$i] ?>" data-medias="<?= $res['medias'][$i] ?>"
                 data-bajas="<?= $res['bajas'][$i] ?>" data-observacion="<?= $res['observacion'][$i] ?>"
                 ></i></div>
