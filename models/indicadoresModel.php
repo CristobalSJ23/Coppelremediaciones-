@@ -33,6 +33,18 @@ class indicadoresModel{
 
         return $data;
     }
+
+    public function updateAsignaciones($datos) {
+        $query = "UPDATE co_r_sist_usu 
+        SET id_gerente_asignado = '".$datos['idGerente']."', 
+            id_jefe_area_asignado = '".$datos['idJefe']."', 
+            id_usuario_asignado = '".$datos['idUsuario']."' 
+        WHERE id_sistema = '".$datos['idSistema']."'";
+        $res = mysqli_query($this->con, $query);
+
+        return true;
+
+    }
     
 }
 

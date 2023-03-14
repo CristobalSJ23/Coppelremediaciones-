@@ -50,8 +50,21 @@ class sistemaModel{
         return true;
     }
 
-    public function crearSelect(){
-
+    public function getSistemaRelation(){
+        $query = " SELECT * FROM co_sistemas s INNER JOIN co_r_sist_usu su ON s.id_sistema = su.id_sistema;";
+        $res = mysqli_query($this->con, $query);
+        $i = 0;
+        if(mysqli_num_rows($res)>0){
+            while($row=mysqli_fetch_assoc($res)){
+                $data['id'][$i] = $row['id_sistema'];
+                $data['url'][$i] = $row['url'];
+                $data['gerente'][$i] = $row['id_gerente_asignado'];
+                $data['jefe'][$i] = $row['id_jefe_area_asignado'];
+                $data['usuarioasi'][$i] = $row['id_usuario_asignado'];
+                $i++;
+            }
+        }
+        return $data;
     }
 }
 ?>
