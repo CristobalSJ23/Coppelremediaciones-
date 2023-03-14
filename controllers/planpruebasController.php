@@ -35,17 +35,15 @@ class planpruebasController extends coreController{
         echo json_encode($res);
     }
 
-    public function create(){
-        
-    }
-
     public function update(){
         $res = $this->plan->update($_POST);
         echo json_encode("El plan de pruebas se ha actualizado");
     }
 
-    public function delete(){
-        
+    public function getHistorialPDP() {
+        $res = $this->plan->getHistorialPDP($_POST['id_pdp']);
+        echo json_encode($res);
     }
+
 }
 ?>

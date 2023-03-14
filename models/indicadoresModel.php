@@ -43,8 +43,9 @@ class indicadoresModel{
         $res = mysqli_query($this->con, $query);
 
         return true;
-
     }
+
+
     
 }
 

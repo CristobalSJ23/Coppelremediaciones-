@@ -34,7 +34,7 @@ $(document).ready(function() {
         $(".editar_pdp_modal").modal("show");
         $('#estatus_sis').attr('value',estatus.trim());
         $('#nombre_aps').attr('value',nombre.trim());
-        $('#descripcion_pdc').attr('value',descripcion.trim());
+        //$('#descripcion_pdc').attr('value',descripcion.trim());
         $('#url_sis').attr('value',url.trim());
         $('#fecha_pdp').val(fechapdp.trim().substring(0, 19));
 
@@ -78,7 +78,22 @@ $(document).ready(function() {
 
     $('.cerrarModal').click(function(){
         $('.editar_pdp_modal').modal("hide");
+        $('.historial_pdp_modal').modal("hide");
     });
+
+    $('.historial').click(function() {
+        var id = $(this).data('id');
+
+        obj.url = '../planpruebas/getHistorialPDP';
+        obj.data = {id_pdp: id};
+        obj.type = 'POST';
+        obj.accion = 'historial';
+
+        peticionAjax(obj);
+        $('.historial_pdp_modal').modal("show");
+    });
+
+   
 
 });
 
@@ -96,6 +111,9 @@ function peticionAjax(datos) {
                     $('.mensaje_sistema').html(res);
                     $('.mensaje').addClass("bg-success");
                     $("#mensajeModal").modal("show");
+                    break;
+                case "historial":
+                    console.info(res);
                     break;
             }
         },

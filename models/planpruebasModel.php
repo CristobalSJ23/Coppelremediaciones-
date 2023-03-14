@@ -99,8 +99,52 @@ class planpruebasModel{
         return true;
     }
 
-    public function delete(){
-        
+    public function createPDP($idSistema) {
+        $queryVR = "SELECT version_historial_pdp FROM pdp WHERE id_sis_pdp = $idSistema";
+        $query = "INSERT INTO pdp(id_sis_pdp, version_historial_pdp) VALUES ($idSistema, 1)";
+        $resVR = mysqli_query($this->con,$queryVR);
+
+        if(mysqli_num_rows($resVR) > 0) {
+            $row = mysqli_fetch_assoc($resVR);
+            $version = $row['version_historial_pdp'];
+            $queryUpdate = "UPDATE pdp SET version_historial_pdp = ($version + 1) WHERE id_sis_pdp = $idSistema";
+            $res = mysqli_query($this->con,$queryUpdate);
+        } else {
+            $res = mysqli_query($this->con,$query);
+        }
+
+        return true;
+    }
+
+    public function getHistorialPDP($id) {
+        $query = "SELECT * FROM historial_pdp WHERE fk_id_pdp = $id";       
+        $res = mysqli_query($this->con,$query);
+        if(mysqli_num_rows($res)>0) {
+            $i = 0;
+            while($row = mysqli_fetch_assoc($res)) {
+                $data['id_hist'][$i] = $row['id_hist'];
+                $data['id_pdp'][$i] = $row['fk_id_pdp'];
+                $data['version_historial'][$i] = $row['version_historial'];
+                $data['estatus_sis'][$i] = $row['estatus_sis'];
+                $data['url_sis'][$i] = $row['url_sis'];
+                $data['arquitecto'][$i] = $row['arquitecto'];
+                $data['programador'][$i] = $row['programador'];
+                $data['gerente'][$i] = $row['gerente'];
+                $data['tester'][$i] = $row['tester'];
+                $data['usuario_gerente'][$i] = $row['usuario_gerente'];
+                $data['fecha_pdp'][$i] = $row['fecha_pdp'];
+                $data['fecha_pruebas_pdp'][$i] = $row['fecha_pruebas_pdp'];
+                $data['fecha_aprobacion_pdp'][$i] = $row['fecha_aprobacion_pdp'];
+                $data['nueva_version_pdp'][$i] = $row['nueva_version_pdp'];
+                $data['version_anterior_pdp'][$i] = $row['version_anterior_pdp'];
+                $data['resultado_pdp'][$i] = $row['resultado_pdp'];
+                $data['notas_asignacion_pdp'][$i] = $row['notas_asignacion_pdp'];
+                $data['bitacora_pdp'][$i] = $row['bitacora_pdp'];
+                $data['jefe_area'][$i] = $row['jefe_area'];
+                $i++;
+            }
+        }
+        return $data;
     }
 }
 ?>

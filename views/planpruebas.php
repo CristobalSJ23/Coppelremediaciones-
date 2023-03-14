@@ -5,7 +5,7 @@
       <th scope="col">#</th>
       <th scope="col">Estatus</th>
       <th scope="col">APS</th>
-      <th scope="col">Descripcion</th>
+      <!-- <th scope="col">Descripcion</th> -->
       <th scope="col">URL</th>
       <th scope="col">Arquitecto</th>
       <th scope="col">Programador</th>
@@ -31,9 +31,9 @@
         <td class="nombre<?=$id?>">
           <?php echo $res['nombre'][$i] ?>
         </td>
-        <td class="descripcion<?=$id?>">
-          <?php echo $res['descripcion'][$i] ?>
-        </td>
+       <!--  <td class="descripcion<?=$id?>"> -->
+          <?php //echo $res['descripcion'][$i] ?>
+       <!--  </td> -->
         <td class="url<?=$id?>">
           <?php echo $res['url'][$i] ?>
         </td>
@@ -104,6 +104,7 @@
 
           <i class="save bi bi-check2-circle btn save<?= $id ?>" data-id="<?= $id ?>" style="display:none"></i>
           <i class="cancelar bi bi-x-circle btn cancelar<?= $id ?>" data-id="<?= $id ?>" style="display:none"></i>
+          <i class="historial bi bi-clock-history btn historial<?= $id ?>" data-id="<?= $id ?>"></i>
         </td>
       </tr>
     <?php } ?>
@@ -140,12 +141,12 @@
               </div>
               <div class="form-group">
                 <label>URL del proyecto trabajado:</label>
-                <input type="text" class="form-control" name="url_sis" id="url_sis" maxlength="256" disabled>
+                <input type="text" class="form-control urlsis" name="url_sis" id="url_sis" maxlength="256" disabled>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label>Descripción (Antes niveles):</label>
                 <input type="text" class="form-control" name="descripcion_pdc" id="descripcion_pdc" maxlength="256" disabled>
-              </div>
+              </div> -->
             </div>
             <div class="col-lg-4 col-xs-12">
               <h4 class="text-center">Fechas y horas</h4>
@@ -267,3 +268,22 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="modal fade historial_pdp_modal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Historial de Versiones</h5>
+        <button type="button" class="close cerrarModal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Sp
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cerrarModal" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div> -->

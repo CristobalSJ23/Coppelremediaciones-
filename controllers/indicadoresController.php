@@ -10,6 +10,8 @@ class indicadoresController extends coreController{
         require_once("models/userModel.php");
         $this->user = new userModel();
         $this->js='../assets/js/indicadores.js';
+        require_once("models/planpruebasModel.php");
+        $this->pdp = new planpruebasModel();
     }
 
     public function avanceDiario(){
@@ -43,6 +45,7 @@ class indicadoresController extends coreController{
 
     public function updateAsignaciones() {
         $res = $this->indicadores->updateAsignaciones($_POST);
+        $respdp = $this->pdp->createPDP($_POST['idSistema']); 
         echo json_encode("Registro actualizados correctamente");
     }
 
