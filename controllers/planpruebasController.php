@@ -9,11 +9,20 @@ class planpruebasController extends coreController{
 
         require_once("models/catalogosModel.php");
         $this->catalogoEstatus = new catalogosModel();
+
+        require_once("models/userModel.php");
+        $this->user = new userModel();
     }
 
     public function read(){
         $res = $this->plan->getPlan();
         $catalogosEstatus = $this->catalogoEstatus->getCatalogoEstatus();
+        $arquitectos = $this->user->getArquitectos();
+        $programadores = $this->user->getProgramadores();
+        $testers = $this->user->getTester();
+        $gerentes = $this->user->getGerentes();
+        $jefes = $this->user->getJefes();
+        $usuarioAsi = $this->user->getUsuariosAsi();
         require_once("views/templates/header.php");
         require_once("views/templates/menu.php");
         require_once("views/planpruebas.php");

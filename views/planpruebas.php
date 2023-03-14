@@ -11,8 +11,8 @@
       <th scope="col">Programador</th>
       <th scope="col">Tester</th>
       <th scope="col">Gerente</th>
-      <th scope="col">Usuario</th>
       <th scope="col">Jefe de Area</th>
+      <th scope="col">Usuario</th>
       <th scope="col">Fecha y Hora</th>
       <th scope="col">Acciones</th>
     </tr>
@@ -38,28 +38,68 @@
           <?php echo $res['url'][$i] ?>
         </td>
         <td class="arquitecto<?=$id?>">
-          <?php echo $res['arquitecto'][$i] ?>
+          <?php foreach($arquitectos['iduser'] as $j => $idArq){ 
+              if($res['arquitecto'][$i] == $idArq){
+                echo $arquitectos['nombre'][$j];
+              }
+            }
+          ?>
         </td>
         <td class="programador<?=$id?>">
-          <?php echo $res['programador'][$i] ?>
+          <?php foreach($programadores['idprog'] as $j => $idProg){ 
+              if($res['programador'][$i] == $idProg){
+                echo $programadores['nombre'][$j];
+              }
+            }
+          ?>
         </td>
         <td class="tester<?=$id?>">
-          <?php echo $res['tester'][$i] ?>
+          <?php foreach($testers['idtest'] as $j => $idTest){ 
+              if($res['tester'][$i] == $idTest){
+                echo $testers['nombre'][$j];
+              }
+            }
+          ?>
         </td>
         <td class="gerente<?=$id?>">
-          <?php echo $res['gerente'][$i] ?>
-        </td>
-        <td class="usuario<?=$id?>">
-          <?php echo $res['usuario'][$i] ?>
+          <?php foreach($gerentes['idgerente'] as $j => $idGer){ 
+              if($res['gerente'][$i] == $idGer){
+                echo $gerentes['nombre'][$j];
+              }
+            }
+          ?>
         </td>
         <td class="jefeArea<?=$id?>">
-          <?php echo $res['jefeArea'][$i] ?>
+          <?php foreach($jefes['idjefe'] as $j => $idJefe){ 
+              if($res['jefeArea'][$i] == $idJefe){
+                echo $jefes['nombre'][$j];
+              }
+            }
+          ?>
+        </td>
+        <td class="usuario<?=$id?>">
+          <?php foreach($usuarioAsi['idusuarioa'] as $j => $idUsr){ 
+              if($res['usuario'][$i] == $idUsr){
+                echo $usuarioAsi['nombre'][$j];
+              }
+            }
+          ?>
         </td>
         <td class="fechapdp<?=$id?>">
           <?php echo substr($res['fecha_pdp'][$i], 0, -7); ?>
         </td>
         <td>
-          <i class="editar bi bi-pencil-square btn  " data-id="<?= $id ?>" data-catalogo="<?= $res['idestatus'][$i] ?>"></i>
+          <i class="editar bi bi-pencil-square btn  " 
+            data-id="<?= $id ?>" 
+            data-catalogo="<?= $res['idestatus'][$i] ?>"
+            data-arquitecto="<?= $res['arquitecto'][$i] ?>"
+            data-programador="<?= $res['programador'][$i] ?>"
+            data-tester="<?= $res['tester'][$i] ?>"
+            data-gerente="<?= $res['gerente'][$i] ?>"
+            data-jefe="<?= $res['jefeArea'][$i] ?>"
+            data-usuario="<?= $res['usuario'][$i] ?>"
+            data-idsis="<?= $res['idsistema'][$i] ?>"
+            ></i>
           <i class="eliminar bi bi-trash btn eliminar<?= $id ?>" data-id="<?= $id ?>"></i>
 
           <i class="save bi bi-check2-circle btn save<?= $id ?>" data-id="<?= $id ?>" style="display:none"></i>
@@ -83,11 +123,11 @@
         <form name="formulario" id="formulario" method="POST">
           <div class="row">
             <div class="col-lg-4 col-xs-12">
-              <h4 class="text-center">Informacion del sistema</h4>
+              <h4 class="text-center">Sistema</h4>
               <div class="form-group">
                 <label>Estatus:</label>
                   <!-- <input type="text" class="form-control" name="estatus_sis" id="estatus_sis" maxlength="50"> -->
-                  <select class="catEstatus form-select">
+                  <select class="catEstatus form-select" name="selectEstatus">
                     <?php 
                       foreach($catalogosEstatus['id'] as $i => $id) { ?>
                         <option value="<?= $id ?>"><?= $catalogosEstatus['estatus'][$i] ?></option>
@@ -110,11 +150,11 @@
             <div class="col-lg-4 col-xs-12">
               <h4 class="text-center">Fechas y horas</h4>
               <div class="form-group">
-                <label>Fecha y hora agendada para pruebas:</label>
+                <label>Pruebas agendadas para:</label>
                   <input type="datetime-local" class="form-control" name="fecha_pdp" id="fecha_pdp">
               </div>
               <div class="form-group">
-                <label>Fecha y hora en que se realizaron las pruebas:</label>
+                <label>Pruebas realizadas el:</label>
                   <input type="datetime-local" class="form-control" name="fecha_pruebas_pdp" id="fecha_pruebas_pdp">
               </div>
               <div class="form-group">
@@ -144,34 +184,64 @@
             <div class="col-lg-4 col-xs-12">
               <h4 class="text-center">Asignación</h4>
               <div class="form-group">
-                <label>Arquitecto:</label>
-                  <input type="text" class="form-control" name="nombre_per_arq" id="nombre_per_arq" maxlength="256">
+                <label>Arquitecto:  QUITAR SELECT</label>
+                  <!-- <input type="text" class="form-control" name="nombre_per_arq" id="nombre_per_arq" maxlength="256"> -->
+                  <select class="form-select arquiSelect" name="selectArqui" disabled>
+                    <?php foreach($arquitectos['iduser'] as $i => $idArq) { ?>
+                      <option value="<?= $idArq ?>"> <?= $arquitectos['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
               </div>
               <div class="form-group">
                 <label>Programador:</label>
-                <input type="text" class="form-control" name="nombre_per_prog" id="nombre_per_prog" maxlength="256">
+                <!-- <input type="text" class="form-control" name="nombre_per_prog" id="nombre_per_prog" maxlength="256"> -->
+                  <select class="form-select progSelect" name="selectProg">
+                    <?php foreach($programadores['idprog'] as $i => $idProg) { ?>
+                      <option value="<?= $idProg ?>"> <?= $programadores['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
               </div>
               <div class="form-group">
                 <label>Tester:</label>
-                  <input type="text" class="form-control" name="nombre_per_tester" id="nombre_per_tester" maxlength="256">
+                  <!-- <input type="text" class="form-control" name="nombre_per_tester" id="nombre_per_tester" maxlength="256"> -->
+                  <select class="form-select testSelect" name="selectTest">
+                    <?php foreach($testers['idtest'] as $i => $idTest) { ?>
+                      <option value="<?= $idTest ?>"> <?= $testers['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
               </div>
               <div class="form-group">
                 <label>Gerente:</label>
-                  <input type="text" class="form-control" name="nombre_per_gerente" id="nombre_per_gerente" maxlength="256">
-              </div>
-              <div class="form-group">
-                <label>Usuario:</label>
-                  <input type="text" class="form-control" name="nombre_per_usuario" id="nombre_per_usuario" maxlength="256">
+                  <!-- <input type="text" class="form-control" name="nombre_per_gerente" id="nombre_per_gerente" maxlength="256"> -->
+                  <select class="form-select gerenteSelect" name="selectGer">
+                    <?php foreach($gerentes['idgerente'] as $i => $idGerente) { ?>
+                      <option value="<?= $idGerente ?>"> <?= $gerentes['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
               </div>
               <div class="form-group">
                 <label>Jefe de Area:</label>
-                  <input type="text" class="form-control" name="nombre_per_jefe_area" id="nombre_per_jefe_area" maxlength="256">
+                  <!-- <input type="text" class="form-control" name="nombre_per_jefe_area" id="nombre_per_jefe_area" maxlength="256"> -->
+                  <select class="form-select jefeSelect" name="selectJefe">
+                    <?php foreach($jefes['idjefe'] as $i => $idJefe) { ?>
+                      <option value="<?= $idJefe ?>"> <?= $jefes['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>Usuario:</label>
+                  <!-- <input type="text" class="form-control" name="nombre_per_usuario" id="nombre_per_usuario" maxlength="256"> -->
+                  <select class="form-select usuarioSelect" name="selectUsuario">
+                    <?php foreach($usuarioAsi['idusuarioa'] as $i => $idUser) { ?>
+                      <option value="<?= $idUser ?>"> <?= $usuarioAsi['nombre'][$i]; ?> </option>
+                    <?php } ?>
+                  </select>
               </div>
             </div>
             <div class="col-lg-4 col-xs-12">
               <h4 class="text-center">Notas</h4>
               <div class="form-group">
-                <label>Notas referentes a la asignación:</label>
+                <label>Referentes a asignación:</label>
                   <input type="text" class="form-control" name="notas_asignacion_pdp" id="notas_asignacion_pdp"
                     maxlength="256">
               </div>
