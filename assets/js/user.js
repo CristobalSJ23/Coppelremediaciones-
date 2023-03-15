@@ -1,6 +1,48 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var obj = {};
-    $('.editar').click(function() {
+
+    $('#Table').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Mostrar Todo"]],
+        dom: 'fr<"col-md-6 inline"l><"row"B> ti<"col-md-7 inline"p>',
+
+        buttons: [
+
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel-o"></i>Excel',
+                title: 'Titulo de tabla en excel',
+                titleAttr: 'Excel',
+                className: 'btn1 btn-app export excel',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o btn-primary btn-success"></i>PDF',
+                title: 'Titulo de tabla en pdf',
+                titleAttr: 'PDF',
+                className: 'btn1 btn-app export pdf',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                },
+            }
+        ],
+
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        }
+
+
+    });
+
+    $('.editar').click(function () {
         var activo = '',
             inactivo = '';
 
@@ -37,7 +79,7 @@ $(document).ready(function() {
 
     });
 
-    $('.cancelar').click(function() {
+    $('.cancelar').click(function () {
         var id = $(this).data('id');
         var htmlNombre = $(this).data('nombre');
         var htmlPaterno = $(this).data('paterno');
@@ -60,7 +102,7 @@ $(document).ready(function() {
         $('.editar_acciones_cancelar' + id).hide();
     });
 
-    $('.save').click(function() {
+    $('.save').click(function () {
         var id = $(this).data('id');
         var html_nombre = $('.editarNombre' + id).val();
         var html_pat = $('.aptPat' + id).val();
@@ -129,12 +171,12 @@ $(document).ready(function() {
 
     });
 
-    $('.crear-usuario').click(function() {
+    $('.crear-usuario').click(function () {
         $('.crear_usuario_modal').modal("show");
 
     });
 
-    $('.save-user').click(function() {
+    $('.save-user').click(function () {
         event.preventDefault();
         var nombre = $('#inputNombre').val();
         var paterno = $('#inputPaterno').val();
@@ -143,7 +185,7 @@ $(document).ready(function() {
         var correo = $('#inputCorreo').val();
         var password = $('#inputPassword').val();
         var datos = $(".frmGuardar").serialize();
-        
+
         if (nombre != '' && paterno != '' && materno != '' && tipoUsuario != '' && correo != '' && password != '') {
             obj.url = '../users/save';
             obj.data = datos;
@@ -156,18 +198,18 @@ $(document).ready(function() {
         }
     });
 
-    $('.eliminar').click(function(){
+    $('.eliminar').click(function () {
         var id = $(this).data("id");
         obj.url = '../users/delete';
-        obj.data = {idUser: id};
+        obj.data = { idUser: id };
         obj.type = 'POST';
         obj.accion = 'delete';
         obj.id = id;
-        
+
         peticionAjax(obj);
     });
 
-    $('.cerrarModal').click(function(){
+    $('.cerrarModal').click(function () {
         $('.crear_usuario_modal').modal("hide");
     });
 
@@ -179,14 +221,14 @@ function peticionAjax(datos) {
         data: datos.data,
         type: datos.type,
         dataType: 'json',
-        success: function(res) {
+        success: function (res) {
             switch (datos.accion) {
                 case "save":
                     $(".frmGuardar")[0].reset();
                     $('.crear_usuario_modal').modal("hide");
                     $('.mensaje_sistema').html(res.res);
                     $('.mensaje').addClass("bg-success");
-                    $("#mensajeModal").modal("show");                      
+                    $("#mensajeModal").modal("show");
                     break;
 
                 case "update":
@@ -201,7 +243,7 @@ function peticionAjax(datos) {
                     break;
             }
         },
-        error: function(xhr, estatus) {
+        error: function (xhr, estatus) {
 
         }
     });

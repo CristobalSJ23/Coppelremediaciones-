@@ -1,5 +1,47 @@
 $(document).ready(function(){
     var obj = {};
+
+    $('#myTable').DataTable({
+        "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": true,
+        "lengthMenu": [[10,20,50, -1],[10,20,50,"Mostrar Todo"]],
+         dom: 'fr<"col-md-6 inline"l><"row"B> ti<"col-md-7 inline"p>',
+
+        buttons: [
+            
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>Excel',
+                title:'Titulo de tabla en excel',
+                titleAttr: 'Excel',
+                className: 'btn btn-app export excel',
+                exportOptions: {
+                    columns: [ 0,1,2,3,4,5]
+                }
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o btn-primary btn-success"></i>PDF',
+                title:'Titulo de tabla en pdf',
+                titleAttr: 'PDF',
+                className: 'btn btn-app export pdf',
+                exportOptions: {
+                    columns: [ 0,1,2,3,4,5]
+                },
+            }
+        ],
+    
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        }
+
+        
+    });
+
     $('.editar').click(function(){
         var activo = '', inactivo = '';
         var id = $(this).data('id');

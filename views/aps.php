@@ -1,6 +1,7 @@
 <br><br><br><br><br>
 <button type="button" class="btn btn-primary agregarNuevo">Crear APS</button>
-<table class="table">
+<br><br>
+<table class="table table-dark table-hover" id="myTable">
 <thead>
   <tr>
     <th scope="col">#</th>   
